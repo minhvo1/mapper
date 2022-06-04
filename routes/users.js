@@ -68,13 +68,13 @@ module.exports = (db) => {
         // create new user
         const hashedPassword = bcrypt.hashSync(password, 10);
         db.query(
-          `INSERT INTO users (first_name, last_name, email, password) VALUES ($1, $2, $3, $4) RETURN *`,
+          `INSERT INTO users (first_name, last_name, email, password) VALUES ($1, $2, $3, $4) RETURNING *`,
           [firstName, lastName, email, hashedPassword]
         )
           .then((data) => {
             const user = data.rows[0];
             req.session.userId = user.id;
-            return res.json({ user });
+            return res.send({ message: "user created", data: user });
           })
           .catch((err) => {
             res.status(500).json({ error: err.message });

@@ -8,24 +8,36 @@
 const express = require("express");
 const router = express.Router();
 
-//maps, user_maps
-
+//maps,
 module.exports = (db) => {
   // get current user's map lists
   router.get("/", (req, res) => {
-    let query = `SELECT * FROM user_maps JOIN maps ON maps.id = user_maps.map_id WHERE user_id = $1`;
+    const query = `SELECT * FROM maps WHERE creator_id = $1`;
 
     db.query(query, [req.session.userId])
       .then((data) => {
         const maps = data.rows;
         res.send({ message: "map lists", data: maps });
       })
-      .catch((err) => {
-        res.status(500).json({ error: err.message });
-      });
+      .catch((err) => res.status(500).send({ error: err.message }));
   });
 
-  // router.
+  router.post("/", (req, res) => {
+    const { mapName } = req.body;
+
+    if (!mapName) return res.status(400).send({ message: "need mapName" });
+
+    const query = `
+    INSERT INTO maps (map_name, creator_id) VALUES ($1, $2) RETURNING *
+    `;
+
+    db.query(query, [mapName, req.session.userId])
+      .then((data) => {
+        const map = data.rows[0];
+        res.send({ message: "map created", data: map });
+      })
+      .catch((err) => res.status(500).send({ error: err.message }));
+  });
 
   return router;
 };
