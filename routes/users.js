@@ -15,7 +15,7 @@ module.exports = (db) => {
     const userId = req.session.userId;
 
     if (userId === undefined || !userId) {
-      return res.send({ message: "go to login" });
+      return res.render("login");
     }
     res.send({ message: "already logged in" });
   });

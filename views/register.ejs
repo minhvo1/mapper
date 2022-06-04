@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <form action="/api/users/register" method="POST">
+    <div class="form-group">
+      <label class="form-label" for="first-name"><b>First Name:</b></label>
+      <input class="form-control" type="text" name="first-name" style="width: 300px; margin: 0.4em" required>
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="last-name"><b>Last Name:</b></label>
+      <input class="form-control" type="text" name="last-name" style="width: 300px; margin: 0.4em" required>
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="email"><b>Email:</b></label>
+      <input class="form-control" type="email" name="email" placeholder="wiki@map.com" style="width: 300px; margin: 0.4em" required>
+    <div class="form-group">
+      <label class="form-label" for="password"><b>Password:</b></label>
+      <input class="form-control" type="password" name="password" placeholder="Password" style="width: 300px; margin: 0.4em" required>
+    </div>
+    <button type="submit" class="btn btn-secondary">Register</button>
+  </form>
+</body>
+</html>
