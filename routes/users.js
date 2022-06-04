@@ -8,6 +8,7 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const router = express.Router();
+const { authUser } = require("../middlewares/authUser");
 
 module.exports = (db) => {
   router.get("/login", (req, res) => {
@@ -23,8 +24,8 @@ module.exports = (db) => {
     const { email, password } = req.body;
 
     db.query(`SELECT * FROM users WHERE email = $1`, [email])
-      .then((result) => {
-        const user = result.rows[0];
+      .then((data) => {
+        const user = data.rows[0];
 
         if (!user)
           return res.status(422).send({ message: "invalid email/password" });
@@ -67,13 +68,13 @@ module.exports = (db) => {
         // create new user
         const hashedPassword = bcrypt.hashSync(password, 10);
         db.query(
-          `INSERT INTO users (first_name, last_name, email, password) VALUES ($1, $2, $3, $4) RETURN *`,
+          `INSERT INTO users (first_name, last_name, email, password) VALUES ($1, $2, $3, $4) RETURNING *`,
           [firstName, lastName, email, hashedPassword]
         )
           .then((data) => {
             const user = data.rows[0];
             req.session.userId = user.id;
-            return res.json({ user });
+            return res.send({ message: "user created", data: user });
           })
           .catch((err) => {
             res.status(500).json({ error: err.message });
@@ -83,11 +84,12 @@ module.exports = (db) => {
         res.status(500).json({ error: err.message });
       });
   });
-  router.get("/me", (req, res) => {
-    db.query(`SELECT * FROM users WHERE users.id = $1`, [req.users.id])
+
+  router.get("/me", authUser, (req, res) => {
+    db.query(`SELECT * FROM users WHERE users.id = $1`, [req.session.userId])
       .then((data) => {
         const user = data.rows[0];
-        res.json({ user });
+        res.send({ message: "user profile", data: user });
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
