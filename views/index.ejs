@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
   integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
   crossorigin=""/>
+  <link href="https://fonts.googleapis.com/css2?family=Joan&display=swap" rel="stylesheet">
 
   <!-- Scripts -->
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
@@ -26,18 +27,31 @@
 </head>
 
 <body>
-  <!-- Side panel -->
+  <!-- Side nav panel -->
   <div class="side-nav">
-    <div class="logo">
+    <!-- Logo -->
+    <section class="logo">
+      <p><strong>Map</strong></p>
+    </section>
 
-    </div>
-    <div>
-      <form class="map-form" method="POST" action="/api/maps">
-        <label class="form-label" for="mapName"><b>Map Name</b></label>
-        <input class="form-control" type="text" name="mapName" required>
-        <button class="add-map" type="submit">Add New Map</button>
-      </form>
-    </div>
+    <!-- User maps menu -->
+    <section class="user-menu">
+      <div class="user-maps">
+        <h3>My Maps</h3>
+        <ul class="map-list">
+          <li>
+            <p>Map 1</p>
+          </li>
+
+      </div>
+      <div class="add-map-form">
+        <form class="map-form" method="POST" action="/api/maps">
+          <label class="form-label" for="mapName"><b>Map Name</b></label>
+          <input class="form-control" type="text" name="mapName" required>
+          <button class="add-map-button" type="submit">Add New Map</button>
+        </form>
+      </div>
+    </section>
   </div>
   <!-- Map body -->
   <div id="map">
