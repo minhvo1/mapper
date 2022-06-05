@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div>
+    <form action="/api/users/login" method="POST">
+      <div class="form-group">
+        <label class="form-label" for="email" style="height: 18px"><b>Email:</b></label>
+        <input class="form-control" type="email" name="email" placeholder="tinyapp@tiny.app" style="width: 300px; margin: 0.4em" required>
+      <div class="form-group">
+        <label class="form-label" for="password" style="height: 18px"><b>Password:</b></label>
+        <input class="form-control" type="password" name="password" placeholder="Password" style="width: 300px; margin: 0.4em" required>
+      </div>
+      <button type="submit" class="btn btn-secondary">Login</button>
+    </form>
+  </div>
+</body>
+</html>

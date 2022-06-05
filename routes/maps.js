@@ -25,7 +25,7 @@ module.exports = (db) => {
   // create map
   router.post("/", (req, res) => {
     const { mapName } = req.body;
-
+    console.log(req.body);
     if (!mapName) return res.status(400).send({ message: "need mapName" });
 
     const query = `
