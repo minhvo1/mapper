@@ -7,7 +7,7 @@ const sassMiddleware = require("./lib/sass-middleware");
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
-const cookieSession = require('cookie-session');
+const cookieSession = require("cookie-session");
 
 // PG database client/connection setup
 const { Pool } = require("pg");
@@ -22,15 +22,16 @@ app.use(morgan("dev"));
 
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(
+  cookieSession({
+    name: "session",
+    keys: [process.env.COOKIE_KEY1, process.env.COOKIE_KEY2],
 
-app.use(cookieSession({
-  name: 'session',
-  keys: [process.env.COOKIE_KEY1, process.env.COOKIE_KEY2],
-
-  // Cookie Options
-  maxAge: 24 * 60 * 60 * 1000 // 24 hours
-}));
-
+    // Cookie Options
+    maxAge: 24 * 60 * 60 * 1000, // 24 hours
+  })
+);
 app.use(
   "/styles",
   sassMiddleware({
@@ -45,12 +46,13 @@ app.use(express.static("public"));
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
 const usersRoutes = require("./routes/users");
-const widgetsRoutes = require("./routes/widgets");
+const mapsRoutes = require("./routes/maps");
+const { authUser } = require("./middlewares/authUser");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 app.use("/api/users", usersRoutes(db));
-app.use("/api/widgets", widgetsRoutes(db));
+app.use("/api/maps", authUser, mapsRoutes(db));
 // Note: mount other resources here, using the same pattern above
 
 // Home page
