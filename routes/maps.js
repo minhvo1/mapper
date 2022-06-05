@@ -25,7 +25,7 @@ module.exports = (db) => {
   // create map
   router.post("/", (req, res) => {
     const { mapName } = req.body;
-    console.log(req.body);
+
     if (!mapName) return res.status(400).send({ message: "need mapName" });
 
     const query = `
@@ -74,10 +74,11 @@ module.exports = (db) => {
               points.image_url, points.created_at
       FROM maps
       JOIN points ON points.map_id = maps.id
-      WHERE maps.id = $1;
+      WHERE maps.id = $1
+      AND creator_id = $2;
     `;
 
-    db.query(query, [id])
+    db.query(query, [id, req.session.userId])
       .then((data) => {
         const map = data.rows;
         res.send({ message: "a map", data: map });

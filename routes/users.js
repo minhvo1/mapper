@@ -17,7 +17,7 @@ module.exports = (db) => {
     if (userId === undefined || !userId) {
       return res.render("login");
     }
-    res.send({ message: "already logged in" });
+    res.redirect("/");
   });
 
   router.post("/login", (req, res) => {
@@ -96,7 +96,7 @@ module.exports = (db) => {
       });
   });
   router.post("/", (req, res) => {
-    res.send({message: 'user register'});
+    res.send({ message: "user register" });
   });
   return router;
 };

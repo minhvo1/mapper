@@ -60,6 +60,10 @@ app.use("/api/maps", authUser, mapsRoutes(db));
 // Separate them into separate routes files (see above).
 
 app.get("/", (req, res) => {
+  const { userId } = req.session;
+
+  if (!userId) return res.render("login");
+
   res.render("index");
 });
 
