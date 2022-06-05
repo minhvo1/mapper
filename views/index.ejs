@@ -16,6 +16,7 @@
   <!-- Scripts -->
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
   <script type="text/javascript" src="/scripts/map.js"></script>
+  <script type="text/javascript" src="/scripts/addNewMap.js"></script>
   <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
   integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
   crossorigin=""></script>
@@ -30,7 +31,8 @@
   </div>
   <div>
     <form class="map-form" method="POST" action="/api/maps">
-
+      <label class="form-label" for="mapName"><b>Map Name</b></label>
+      <input class="form-control" type="text" name="mapName" style="width: 300px; margin: 0.4em" required>
       <button class="add-map" type="submit">Add New Map</button>
     </form>
   </div>

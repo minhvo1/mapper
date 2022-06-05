@@ -37,7 +37,7 @@ module.exports = (db) => {
 
         req.session.userId = user.id;
         console.log(req.session.userId);
-        res.send({ message: "login success" });
+        res.redirect("/");
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
