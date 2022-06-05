@@ -7,7 +7,7 @@
   <!-- CSS Stylesheets -->
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
   <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-  <link rel="stylesheet" href="/styles/main.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/index.css" type="text/css" />
   <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
   integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
@@ -26,16 +26,24 @@
 </head>
 
 <body>
-  <div id="map">
+  <!-- Side panel -->
+  <div class="side-nav">
+    <div class="logo">
 
+    </div>
+    <div>
+      <form class="map-form" method="POST" action="/api/maps">
+        <label class="form-label" for="mapName"><b>Map Name</b></label>
+        <input class="form-control" type="text" name="mapName" required>
+        <button class="add-map" type="submit">Add New Map</button>
+      </form>
+    </div>
   </div>
-  <div>
-    <form class="map-form" method="POST" action="/api/maps">
-      <label class="form-label" for="mapName"><b>Map Name</b></label>
-      <input class="form-control" type="text" name="mapName" style="width: 300px; margin: 0.4em" required>
-      <button class="add-map" type="submit">Add New Map</button>
-    </form>
+  <!-- Map body -->
+  <div id="map">
   </div>
+  <!-- Map name input form -->
+
 </body>
 
 </html>
