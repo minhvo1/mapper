@@ -76,7 +76,7 @@ const createMarkers = (map) => {
 const renderMarkerInfoForm = () => {
   const $markerForm = ``
 
-  `
+
 }
 
 const initializeMap = () => {
