@@ -24,7 +24,8 @@ $(document).ready(function () {
         const points = result.data;
         for (const point of points) {
           marker = new L.Marker([point.lat, point.long]).bindPopup(
-            markerPopup(point)
+            markerPopup(point),
+            { maxWidth: "auto" }
           );
           window.markers.push(marker);
           map.addLayer(marker);
