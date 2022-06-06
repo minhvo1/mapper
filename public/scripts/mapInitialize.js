@@ -3,9 +3,9 @@ $(document).ready(function () {
   let map = initializeMap();
 
   let marker;
-  let markers = [];
+  window.markers = [];
   $(".user-maps").on("click", "div", function () {
-    const key = $(this).children().attr("data-input");
+    const mapId = $(this).children().attr("data-input");
 
     window.currentMapId = mapId;
     // remove markers before render new markers
@@ -51,7 +51,6 @@ const markerPopup = (markerInfo) => {
 
 const createMarkers = (map) => {
   map.on("click", (event) => {
-    // console.log(marker);
     // console.log(window.currentMapId);
     // lat, long, title, description, imageUrl
 
@@ -63,13 +62,22 @@ const createMarkers = (map) => {
         long: event.latlng.lng,
       },
       success: function (result) {
-        let marker = L.marker([event.latlng.lat, event.latlng.lng]);
+        let marker = L.marker([event.latlng.lat, event.latlng.lng]).bindPopup(
+          markerPopup(result)
+        );
+        console.log(marker);
         window.markers.push(marker);
         map.addLayer(marker);
       },
     });
   });
 };
+
+const renderMarkerInfoForm = () => {
+  const $markerForm = ``
+
+  `
+}
 
 const initializeMap = () => {
   // Initialize the map
