@@ -16,8 +16,9 @@
 
   <!-- Scripts -->
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-  <script type="text/javascript" src="/scripts/map.js"></script>
+  <script type="text/javascript" src="/scripts/mapInitialize.js"></script>
   <script type="text/javascript" src="/scripts/addNewMap.js"></script>
+  <script type="text/javascript" src="/scripts/loadUserMaps.js"></script>
   <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
     integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
     crossorigin=""></script>
@@ -33,15 +34,17 @@
     <section class="logo">
       <p><strong>Map</strong></p>
     </section>
-
+    <section class="user-welcome">
+      <p><strong>Welcome, User!</strong></p>
+    </section>
+    <section class="logout-link">
+      <button class="logout-button" type="submit">Logout</button>
+    </section>
     <!-- User maps menu -->
     <section class="user-menu">
       <div class="user-maps">
         <h3>My Maps</h3>
         <ul class="map-list">
-          <li>
-            <p>Map 1</p>
-          </li>
 
       </div>
       <div class="add-map-form">

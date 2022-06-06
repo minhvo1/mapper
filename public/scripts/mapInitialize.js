@@ -13,4 +13,21 @@ $(document).ready(function() {
     console.log(markersArray);
   })
 
+
+  $('.user-maps').on('click', '.map-name', function () {
+    const key = $(this).attr('data-input');
+    console.log($(this).attr('data-input'));
+    $.ajax({
+      type: 'GET',
+      url: `/api/maps/${key}`,
+      success: (result) => {
+        console.log(result);
+
+      }
+
+    })
+  })
+
 });
+
+
