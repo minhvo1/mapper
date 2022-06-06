@@ -1,11 +1,14 @@
 // Create new map name element
 const createMapNameElement = (mapName) => {
-
+  let newMapName = decodeURI(mapName);
   let $mapElement = `
     <li>
-      <p>${mapName.slice(8)}</p>
+      <div>
+        <p>${newMapName.slice(8)}</p>
+      </div>
     </li>
    `;
+
    return $mapElement;
 };
 
@@ -13,7 +16,8 @@ const createMapNameElement = (mapName) => {
 $(() => {
   $('.map-form').on('submit', function(event) {
     event.preventDefault();
-    const mapName = $(this).serialize();
+    const mapName = $(this).serialize().trim();
+
     $.ajax({
       type: 'POST',
       url: '/api/maps',

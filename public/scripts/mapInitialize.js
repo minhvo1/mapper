@@ -3,10 +3,9 @@ $(document).ready(function () {
   let map = initializeMap();
 
   let marker;
-  window.markers = [];
-
-  $(".user-maps").on("click", ".map-name", function () {
-    const mapId = $(this).attr("data-input");
+  let markers = [];
+  $(".user-maps").on("click", "div", function () {
+    const key = $(this).children().attr("data-input");
 
     window.currentMapId = mapId;
     // remove markers before render new markers
