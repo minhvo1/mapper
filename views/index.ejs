@@ -9,6 +9,8 @@
   <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
   <link rel="stylesheet" href="/styles/index.css" type="text/css" />
   <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/new-map.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/side-panel.css" type="text/css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
     integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
     crossorigin="" />
@@ -40,10 +42,9 @@
     </section>
     <section class="user-welcome">
       <p><strong>Welcome, User!</strong></p>
-    </section>
-    <section class="logout-link">
       <button class="logout-button" type="submit">Logout</button>
     </section>
+
     <!-- User maps menu -->
     <section class="user-menu">
       <div class="user-maps">
@@ -54,7 +55,7 @@
       <div class="add-map-form">
         <form class="map-form" method="POST" action="/api/maps">
           <label class="form-label" for="mapName"><b>Map Name</b></label>
-          <input class="form-control" type="text" name="mapName" required>
+          <input class="map-form-input" type="text" name="mapName" required>
           <button class="add-map-button" type="submit">Add New Map</button>
         </form>
       </div>
