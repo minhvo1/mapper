@@ -43,30 +43,45 @@ module.exports = (db) => {
   // create point
   router.post("/:id", (req, res) => {
     const mapId = req.params.id;
+    console.log(req.params);
+    console.log(mapId);
 
     if (!mapId) return res.status(400).send({ message: "invalid /:id" });
 
     const { lat, long, title, description, imageUrl } = req.body;
+    console.log(req.body);
 
-    if (!lat || !long || !title || !description || !imageUrl) {
-      return res.status(400).send({ message: "invalid data" });
-    }
+    // if (!lat || !long || !title || !description || !imageUrl) {
+    //   return res.status(400).send({ message: "invalid data" });
+    // }
 
     const query = `
-    INSERT INTO points (lat, long, title, description, image_url, map_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *
+    INSERT INTO points (lat, long, map_id) VALUES ($1, $2, $3) RETURNING *
     `;
 
-    db.query(query, [lat, long, title, description, imageUrl, mapId])
+    db.query(query, [lat, long, mapId])
       .then((data) => {
         const point = data.rows[0];
         res.send({ message: "point created", data: point });
       })
       .catch((err) => res.status(500).send({ error: err.message }));
+
+    // const query = `
+    // INSERT INTO points (lat, long, title, description, image_url, map_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *
+    // `;
+
+    // db.query(query, [lat, long, title, description, imageUrl, mapId])
+    //   .then((data) => {
+    //     const point = data.rows[0];
+    //     res.send({ message: "point created", data: point });
+    //   })
+    //   .catch((err) => res.status(500).send({ error: err.message }));
   });
 
   // get a map with points
   router.get("/:id", (req, res) => {
     const { id } = req.params;
+
     if (!id) return res.status(400).send({ message: "invalid /:id" });
 
     const query = `

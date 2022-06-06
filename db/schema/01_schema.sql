@@ -27,9 +27,9 @@ CREATE TABLE points (
   id SERIAL PRIMARY KEY NOT NULL,
   lat FLOAT NOT NULL,
   long FLOAT NOT NULL,
-  title VARCHAR(255) NOT NULL,
-  description text NOT NULL,
-  image_url VARCHAR(255) NOT NULL,
+  title VARCHAR(255),
+  description text,
+  image_url VARCHAR(255),
   created_at TIMESTAMP NOT NULL DEFAULT NOW(),
   map_id INTEGER NOT NULL REFERENCES maps(id) ON DELETE CASCADE
 );
