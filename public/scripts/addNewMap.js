@@ -9,24 +9,26 @@ const createMapNameElement = (mapName) => {
     </li>
    `;
 
-   return $mapElement;
+  return $mapElement;
 };
 
 // New map form submission
 $(() => {
-  $('.map-form').on('submit', function(event) {
+  $(".map-form").on("submit", function (event) {
     event.preventDefault();
     const mapName = $(this).serialize().trim();
 
     $.ajax({
-      type: 'POST',
-      url: '/api/maps',
+      type: "POST",
+      url: "/api/maps",
       data: mapName,
-      success: function(data) {
-        console.log(data);
-      }
-    })
+      success: function (result) {
+        console.log(result);
+        window.currentMapId = result.data.id;
+        $(".currentMap").append(`<h2>current map:${result.data.map_name}</h2>`);
+      },
+    });
 
-    $('.map-list').append(createMapNameElement(mapName));
-  })
-})
+    $(".map-list").append(createMapNameElement(mapName));
+  });
+});

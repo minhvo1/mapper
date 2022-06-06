@@ -43,8 +43,6 @@ module.exports = (db) => {
   // create point
   router.post("/:id", (req, res) => {
     const mapId = req.params.id;
-    console.log(req.params);
-    console.log(mapId);
 
     if (!mapId) return res.status(400).send({ message: "invalid /:id" });
 

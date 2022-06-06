@@ -33,10 +33,6 @@ $(document).ready(function () {
     });
   });
   createMarkers(map);
-
-  marker.on("click", (event) => {
-    console.log(this, "yes");
-  });
 });
 
 const markerPopup = (markerInfo) => {
@@ -50,9 +46,14 @@ const markerPopup = (markerInfo) => {
 };
 
 const createMarkers = (map) => {
-  map.on("click", (event) => {
-    // console.log(window.currentMapId);
+  map.on("click", function (event) {
     // lat, long, title, description, imageUrl
+    if (!window.currentMapId) {
+      alert("create/select map before you add markers");
+      return;
+    }
+
+    let marker = L.marker([event.latlng.lat, event.latlng.lng]);
 
     $.ajax({
       type: "POST",
@@ -62,11 +63,9 @@ const createMarkers = (map) => {
         long: event.latlng.lng,
       },
       success: function (result) {
-        let marker = L.marker([event.latlng.lat, event.latlng.lng]).bindPopup(
-          markerPopup(result)
-        );
         console.log(marker);
         window.markers.push(marker);
+        marker.bindPopup(markerPopup(result));
         map.addLayer(marker);
       },
     });
@@ -74,14 +73,23 @@ const createMarkers = (map) => {
 };
 
 const renderMarkerInfoForm = () => {
-  const $markerForm = ``
-
-  `
-}
+  const $markerForm = `
+    <form class="marker-form">
+      <label for="markerName">title: </label>
+      <input type="text" id="markerName" name="markerName"></input>
+      <label for="markerDesc">description: </label>
+      <input type="textarea" id="markerDesc" name="markerDesc"></input>
+      <label for="markerImgUrl">img url: </label>
+      <input type="text" id="markerImgUrl" name="markerImgUrl"></input>
+      <button>make marker</button>
+    </form>
+  `;
+  return $markerForm;
+};
 
 const initializeMap = () => {
   // Initialize the map
-  const map = L.map("map");
+  let map = L.map("map");
 
   // Get the tile layer from OpenStreetMaps
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
