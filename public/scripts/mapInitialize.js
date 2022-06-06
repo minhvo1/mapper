@@ -16,8 +16,8 @@ $(document).ready(function() {
   //  Get map points on click
   let marker;
   let markers = [];
-  $(".user-maps").on("click", ".map-name", function () {
-    const key = $(this).attr("data-input");
+  $(".user-maps").on("click", "div", function () {
+    const key = $(this).children().attr("data-input");
 
     if (markers) {
       for (let i = 0; i < markers.length; i++) {
