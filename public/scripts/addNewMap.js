@@ -3,7 +3,9 @@ const createMapNameElement = (mapName) => {
   let newMapName = decodeURI(mapName);
   let $mapElement = `
     <li>
-      <p>${newMapName.slice(8)}</p>
+      <div>
+        <p>${newMapName.slice(8)}</p>
+      </div>
     </li>
    `;
 
