@@ -1,12 +1,13 @@
 // Initialize Leaflet map
 $(document).ready(function () {
-  let map = initializeMap();
+  window.map = initializeMap();
+  let map = window.map;
 
   let marker;
   window.markers = [];
-  $(".user-maps").on("click", ".single-map-name", function () {
+  $(".map-list").on("click", "div", function () {
     const mapId = $(this).children().attr("data-input");
-
+    // console.log(mapId);
     window.currentMapId = mapId;
     // remove markers before render new markers
     if (window.markers) {
@@ -19,7 +20,6 @@ $(document).ready(function () {
       type: "GET",
       url: `/api/maps/${mapId}`,
       success: (result) => {
-        // console.log(result.data);
         const points = result.data;
         for (const point of points) {
           marker = new L.Marker([point.lat, point.long]).bindPopup(
@@ -90,16 +90,6 @@ const renderMarkerInfoForm = () => {
 const initializeMap = () => {
   // Initialize the map
   let map = L.map("map");
-
-  // Get the tile layer from OpenStreetMaps
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    // Specify the maximum zoom of the map
-    maxZoom: 19,
-
-    // Set the attribution for OpenStreetMaps
-    attribution:
-      '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  }).addTo(map);
 
   map.locate({ setView: true, maxZoom: 13, drag: true });
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {

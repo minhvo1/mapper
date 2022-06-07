@@ -1,10 +1,9 @@
 // Create new map name element
-const createMapNameElement = (mapName) => {
-  let newMapName = decodeURI(mapName);
+const createMapNameElement = (mapInfo) => {
   let $mapElement = `
     <li>
-      <div class="single-map-name">
-        <p>${newMapName.slice(8)}</p>
+      <div>
+        <p class="map-name" data-input="${mapInfo.id}">${mapInfo.map_name}</p>
       </div>
     </li>
    `;
@@ -18,16 +17,23 @@ $(() => {
     event.preventDefault();
     const mapName = $(this).serialize().trim();
 
+    // remove markers before render new markers
+    if (window.markers) {
+      for (let i = 0; i < window.markers.length; i++) {
+        window.map.removeLayer(window.markers[i]);
+      }
+    }
+
     $.ajax({
       type: "POST",
       url: "/api/maps",
       data: mapName,
       success: function (result) {
-        console.log(result);
         window.currentMapId = result.data.id;
+
+        $(".map-list").append(createMapNameElement(result.data));
+        $(".map-form-input").val("");
       },
     });
-
-    $(".map-list").append(createMapNameElement(mapName));
   });
 });
