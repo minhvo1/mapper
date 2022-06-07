@@ -49,6 +49,15 @@ module.exports = (db) => {
     res.send({ message: "logout success" });
   });
 
+  router.get("/register", (req, res) => {
+    const userId = req.session.userId;
+
+    if (userId === undefined || !userId) {
+      return res.render("register");
+    }
+    res.redirect("/");
+  });
+
   router.post("/register", (req, res) => {
     const { firstName, lastName, email, password } = req.body;
 
