@@ -98,14 +98,12 @@ const createMarkers = () => {
 const renderMarkerInfoForm = () => {
   const $markerForm = `
     <div class="marker-form-container">
+      <p class="add-marker-header">Add a marker</p>
       <form class="marker-form">
-        <label for="markerName">title: </label>
-        <input type="text" id="markerName" name="markerName"></input>
-        <label for="markerDesc">description: </label>
-        <input type="textarea" id="markerDesc" name="markerDesc"></input>
-        <label for="markerImgUrl">img url: </label>
-        <input type="text" id="markerImgUrl" name="markerImgUrl"></input>
-        <button>make marker</button>
+        <input type="text" id="markerName" name="markerName" placeholder="Title"></input>
+        <input type="textarea" id="markerDesc" name="markerDesc" placeholder="Description"></input>
+        <input type="text" id="markerImgUrl" name="markerImgUrl" placeholder="Image URL"></input>
+        <button><strong>Create</strong></button>
       </form>
     </div>
   `;
