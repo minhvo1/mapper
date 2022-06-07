@@ -5,7 +5,6 @@ $(document).ready(function () {
 
   let marker;
   window.markers = [];
-  console.log(window.markers);
 
   $(".map-list").on("click", "div", function () {
     const mapId = $(this).children().attr("data-input");
@@ -36,6 +35,10 @@ $(document).ready(function () {
   });
 
   createMarkers();
+
+  marker.on("click", function (e) {
+    console.log(e);
+  });
 });
 
 const markerPopup = (markerInfo) => {
@@ -65,9 +68,6 @@ const createMarkers = () => {
     marker.getPopup().on("remove", function () {
       window.map.removeLayer(marker);
     });
-    // marker.getPopup().on("popupclose", function () {
-    //   window.map.removeLayer(marker);
-    // });
 
     $(".marker-form").on("submit", function (e) {
       e.preventDefault();
