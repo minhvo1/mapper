@@ -65,7 +65,15 @@ app.get("/", (req, res) => {
 
   if (!userId) return res.render("login");
 
-  res.render("index");
+  db.query(`SELECT first_name, last_name, email FROM users WHERE id = $1`, [
+    userId,
+  ])
+    .then((result) => {
+      res.render("index", { userInfo: result.rows[0] });
+    })
+    .catch((err) => {
+      res.send({ message: err.message });
+    });
 });
 
 app.listen(PORT, () => {
