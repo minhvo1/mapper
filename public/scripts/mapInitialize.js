@@ -5,6 +5,8 @@ $(document).ready(function () {
 
   let marker;
   window.markers = [];
+  console.log(window.markers)
+
   $(".map-list").on("click", "div", function () {
     const mapId = $(this).children().attr("data-input");
     // console.log(mapId);
@@ -32,14 +34,16 @@ $(document).ready(function () {
       },
     });
   });
+
   createMarkers();
 });
+
 
 const markerPopup = (markerInfo) => {
   const $popUpInfo = `
     <p>${markerInfo.title}</p>
     <p>${markerInfo.description}</p>
-    <img src="${markerInfo.image_url}"></img>
+    <img src='"${markerInfo.image_url}"'></img>
   `;
 
   return $popUpInfo;
@@ -53,38 +57,47 @@ const createMarkers = () => {
       return;
     }
 
-    let marker = L.marker([event.latlng.lat, event.latlng.lng]);
+    let marker = new L.marker([event.latlng.lat, event.latlng.lng]);
     window.map.addLayer(marker);
     marker.bindPopup(renderMarkerInfoForm()).openPopup();
 
-    // $.ajax({
-    //   type: "POST",
-    //   url: `/api/maps/${window.currentMapId}`,
-    //   data: {
-    //     lat: event.latlng.lat,
-    //     long: event.latlng.lng,
-    //   },
-    //   success: function (result) {
-    //     console.log(marker);
-    //     window.markers.push(marker);
-    //     marker.bindPopup(markerPopup(result));
-    //     map.addLayer(marker);
-    //   },
-    // });
+    $('.marker-form').on('submit', function(e){
+        e.preventDefault();
+
+        let data = $(this).serialize() + `&lat=${event.latlng.lat}&long=${event.latlng.lng}`
+
+        return $.ajax({
+          type: "POST",
+          url: `/api/maps/${window.currentMapId}`,
+          data,
+          success: function (result) {
+            console.log(result)
+            window.markers.push(marker);
+            marker.closePopup();
+            marker.unbindPopup();
+            marker.bindPopup(markerPopup(result.data));
+          },
+          error: function(){
+            window.map.removeLayer(marker)
+          }
+        })
+      })
   });
 };
 
 const renderMarkerInfoForm = () => {
   const $markerForm = `
-    <form class="marker-form">
-      <label for="markerName">title: </label>
-      <input type="text" id="markerName" name="markerName"></input>
-      <label for="markerDesc">description: </label>
-      <input type="textarea" id="markerDesc" name="markerDesc"></input>
-      <label for="markerImgUrl">img url: </label>
-      <input type="text" id="markerImgUrl" name="markerImgUrl"></input>
-      <button>make marker</button>
-    </form>
+    <div class="marker-form-container">
+      <form class="marker-form">
+        <label for="markerName">title: </label>
+        <input type="text" id="markerName" name="markerName"></input>
+        <label for="markerDesc">description: </label>
+        <input type="textarea" id="markerDesc" name="markerDesc"></input>
+        <label for="markerImgUrl">img url: </label>
+        <input type="text" id="markerImgUrl" name="markerImgUrl"></input>
+        <button>make marker</button>
+      </form>
+    </div>
   `;
   return $markerForm;
 };

@@ -5,6 +5,9 @@ $(document).ready(function () {
     success: (result) => {
       renderUserMaps(result.data);
     },
+    error: (err) => {
+      console.log('error getting map lists', err.message)
+    }
   });
 
   $(document).ajaxComplete(function () {
