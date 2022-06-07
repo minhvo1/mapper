@@ -62,15 +62,17 @@ body div {
   height: 2.5rem;
   width: 26rem;
   border-radius: 0.2rem;
+  text-indent: 0.5rem;
 }
 
 .login-button {
   width: 26rem;
   height: 2.5rem;
   margin-top: 1.4rem;
+  font-weight: 600;
   border-radius: 0.2rem;
+  background-color: #dadfe8;
+  border: 0.1rem #ccd2db;
 }
 
-::placeholder {
-  padding-left: 0.5rem;
-}
+
