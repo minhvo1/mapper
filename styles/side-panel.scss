@@ -19,15 +19,17 @@
   font-family: 'Patua One';
   display: flex;
   justify-content: center;
+  background-color: #c8d1e0;
+  background-image: url('/images/logo-bg.png');
 }
 
 .user-welcome {
-  padding-left: 1rem;
+  padding-left: 1.2rem;
 
 }
 
 .user-welcome p {
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   margin-top: 1.7rem;
   margin-bottom: 0.6rem;
 }
@@ -45,8 +47,8 @@
 }
 
 #user-maps-header {
-  padding-left: 1rem;
-  margin-top: 2rem;
+  padding-left: 1.2rem;
+  margin-top: 4rem;
   margin-bottom: 0;
   font-size: 1.5rem;
   font-weight: 600;
@@ -58,14 +60,12 @@
   justify-content: space-between;
   width: 100%;
   height: 100%;
-  padding-left: 1rem;
+  padding-left: 1.2rem;
 }
 
 .user-maps {
-  height: 60vh;
-
+  height: 42vh;
   overflow-y: scroll;
-
   overflow-x: hidden;
   margin-top: 0.5rem;
 

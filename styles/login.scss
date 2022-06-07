@@ -22,6 +22,8 @@ body div {
   height: 100%;
   background-color: #bfc9db;
   border-radius: 3.5rem;
+  border: solid 0.1rem #cacad6;
+  background-image: url('/images/logo-bg.png');
 }
 
 .login-logo p {
@@ -73,6 +75,7 @@ body div {
   border-radius: 0.2rem;
   background-color: #dadfe8;
   border: 0.1rem #ccd2db;
+  cursor: pointer;
 }
 
 
