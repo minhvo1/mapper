@@ -4,20 +4,43 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Login</title>
+
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+  <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/login.css" type="text/css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+    integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+    crossorigin="" />
+  <link href="https://fonts.googleapis.com/css2?family=Patua+One&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Joan&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.Default.css" />
 </head>
+
 <body>
   <div>
-    <form action="/api/users/login" method="POST">
-      <div class="form-group">
-        <label class="form-label" for="email" style="height: 18px"><b>Email:</b></label>
-        <input class="form-control" type="email" name="email" placeholder="tinyapp@tiny.app" style="width: 300px; margin: 0.4em" required>
-      <div class="form-group">
-        <label class="form-label" for="password" style="height: 18px"><b>Password:</b></label>
-        <input class="form-control" type="password" name="password" placeholder="Password" style="width: 300px; margin: 0.4em" required>
+    <div class="login-tab">
+      <div class="login-logo">
+        <p>WikiMap</p>
       </div>
-      <button type="submit" class="btn btn-secondary">Login</button>
-    </form>
+      <div class="login-section">
+        <p>LOGIN</p>
+        <form action="/api/users/login" method="POST">
+          <div class="form-group">
+            <input class="form-control" type="email" name="email" placeholder="Email" required>
+          </div>
+          <div class="form-group">
+            <input class="form-control" type="password" name="password" placeholder="Password" required>
+          </div>
+          <button type="submit" class="login-button">Login</button>
+        </form>
+
+      </div>
+
+    </div>
   </div>
 </body>
 </html>
