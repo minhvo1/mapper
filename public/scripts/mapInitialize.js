@@ -5,7 +5,7 @@ $(document).ready(function () {
 
   let marker;
   window.markers = [];
-  console.log(window.markers)
+  console.log(window.markers);
 
   $(".map-list").on("click", "div", function () {
     const mapId = $(this).children().attr("data-input");
@@ -38,14 +38,15 @@ $(document).ready(function () {
   createMarkers();
 });
 
-
 const markerPopup = (markerInfo) => {
   const $popUpInfo = `
     <p>${markerInfo.title}</p>
     <p>${markerInfo.description}</p>
-    <img src='"${markerInfo.image_url}"'></img>
+    <img src="../assets/123.jpg" style="width: 200px"/>
   `;
-
+  {
+    /* <img src="${markerInfo.image_url}"></img> */
+  }
   return $popUpInfo;
 };
 
@@ -61,27 +62,36 @@ const createMarkers = () => {
     window.map.addLayer(marker);
     marker.bindPopup(renderMarkerInfoForm()).openPopup();
 
-    $('.marker-form').on('submit', function(e){
-        e.preventDefault();
+    marker.getPopup().on("remove", function () {
+      window.map.removeLayer(marker);
+    });
+    // marker.getPopup().on("popupclose", function () {
+    //   window.map.removeLayer(marker);
+    // });
 
-        let data = $(this).serialize() + `&lat=${event.latlng.lat}&long=${event.latlng.lng}`
+    $(".marker-form").on("submit", function (e) {
+      e.preventDefault();
 
-        return $.ajax({
-          type: "POST",
-          url: `/api/maps/${window.currentMapId}`,
-          data,
-          success: function (result) {
-            console.log(result)
-            window.markers.push(marker);
-            marker.closePopup();
-            marker.unbindPopup();
-            marker.bindPopup(markerPopup(result.data));
-          },
-          error: function(){
-            window.map.removeLayer(marker)
-          }
-        })
-      })
+      let data =
+        $(this).serialize() +
+        `&lat=${event.latlng.lat}&long=${event.latlng.lng}`;
+
+      $.ajax({
+        type: "POST",
+        url: `/api/maps/${window.currentMapId}`,
+        data,
+        success: function (result) {
+          console.log(result);
+          window.markers.push(marker);
+          // marker.closePopup();
+          // marker.unbindPopup();
+          marker.bindPopup(markerPopup(result.data));
+        },
+        error: function () {
+          window.map.removeLayer(marker);
+        },
+      });
+    });
   });
 };
 
