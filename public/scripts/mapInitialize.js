@@ -32,7 +32,7 @@ $(document).ready(function () {
       },
     });
   });
-  createMarkers(map);
+  createMarkers();
 });
 
 const markerPopup = (markerInfo) => {
@@ -45,8 +45,8 @@ const markerPopup = (markerInfo) => {
   return $popUpInfo;
 };
 
-const createMarkers = (map) => {
-  map.on("click", function (event) {
+const createMarkers = () => {
+  window.map.on("click", function (event) {
     // lat, long, title, description, imageUrl
     if (!window.currentMapId) {
       alert("create/select map before you add markers");
@@ -54,21 +54,23 @@ const createMarkers = (map) => {
     }
 
     let marker = L.marker([event.latlng.lat, event.latlng.lng]);
+    window.map.addLayer(marker);
+    marker.bindPopup(renderMarkerInfoForm()).openPopup();
 
-    $.ajax({
-      type: "POST",
-      url: `/api/maps/${window.currentMapId}`,
-      data: {
-        lat: event.latlng.lat,
-        long: event.latlng.lng,
-      },
-      success: function (result) {
-        console.log(marker);
-        window.markers.push(marker);
-        marker.bindPopup(markerPopup(result));
-        map.addLayer(marker);
-      },
-    });
+    // $.ajax({
+    //   type: "POST",
+    //   url: `/api/maps/${window.currentMapId}`,
+    //   data: {
+    //     lat: event.latlng.lat,
+    //     long: event.latlng.lng,
+    //   },
+    //   success: function (result) {
+    //     console.log(marker);
+    //     window.markers.push(marker);
+    //     marker.bindPopup(markerPopup(result));
+    //     map.addLayer(marker);
+    //   },
+    // });
   });
 };
 
