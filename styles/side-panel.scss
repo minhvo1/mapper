@@ -14,7 +14,7 @@
 
 .logo {
   font-size: 3rem;
-  border-bottom: 0.2rem solid rgb(58, 57, 57);
+  border-bottom: 0.2rem solid rgb(108, 108, 110);
   font-family: 'Patua One';
   display: flex;
   justify-content: center;
@@ -22,14 +22,13 @@
 
 .user-welcome {
   padding-left: 1rem;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+
 }
 
 .user-welcome p {
-  font-size: 1.5rem;
-
+  font-size: 2.5rem;
+  margin-top: 1.7rem;
+  margin-bottom: 0.6rem;
 }
 
 .user-welcome button {
@@ -40,10 +39,13 @@
   color: rgb(87, 84, 84);
   font-weight: 600;
   border-radius: 0.5rem;
+  box-shadow: 0.1rem 0.1rem #ced3db;
+  cursor: pointer;
 }
 
 #user-maps-header {
   padding-left: 1rem;
+  margin-top: 2rem;
   margin-bottom: 0;
   font-size: 1.5rem;
   font-weight: 600;
@@ -77,11 +79,12 @@
 
 ol li {
   margin-left: -0.5rem;
+  height: 2.6rem;
 }
 
 ol li div {
   width: 17.7rem;
-  height: 2.6rem;
+  height: 2.5rem;
   background-color: #f9f9fb;
   margin-left: -2rem;
   padding-left: 2rem;
