@@ -1,0 +1,86 @@
+body div {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.register-tab {
+  width: 80rem;
+  height: 30rem;
+  background-color: #f9f9fb;
+  display: flex;
+  flex-direction: row-reverse;
+  border-radius: 3.5rem;
+
+}
+
+.register-logo {
+  display: flex;
+  flex-direction: column;
+  width:100%;
+  height: 100%;
+  background-color: #f9f9fb;
+  border-radius: 3.5rem;
+  border: solid 0.1rem #f2f2f5;
+  background-image: url('/images/logo-bg.png');
+}
+
+.register-logo p {
+  font-size: 6rem;
+  letter-spacing: 0.7rem;
+  font-family: 'Patua One';
+  margin-bottom: 4rem;
+
+}
+
+.register-section {
+  width: 70rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.register-section p {
+  font-size: 2.3rem;
+  font-weight: 600;
+  padding-bottom: 1rem;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.register-section form {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-group {
+  height: 3.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-control {
+  height: 2.5rem;
+  width: 26rem;
+  border-radius: 0.2rem;
+  text-indent: 0.5rem;
+}
+
+.register-button {
+  width: 26rem;
+  height: 3rem;
+  margin-top: 1.4rem;
+  font-weight: 600;
+  border-radius: 0.2rem;
+  background-color: #dadfe8;
+  border: 0.1rem #ccd2db;
+  cursor: pointer;
+}
+
+
