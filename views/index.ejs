@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
     integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
     crossorigin="" />
+  <link href="https://fonts.googleapis.com/css2?family=Patua+One&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Joan&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.Default.css" />
@@ -40,7 +41,7 @@
   <div class="side-nav">
     <!-- Logo -->
     <section class="logo">
-      <p><strong>Map</strong></p>
+      <p><strong>WikiMap</strong></p>
     </section>
     <section class="user-welcome">
       <p><strong>Welcome, User!</strong></p>
@@ -55,9 +56,11 @@
       </div>
       <div class="add-map-form">
         <form class="map-form" method="POST" action="/api/maps">
-          <label class="form-label" for="mapName">Add New Map</label>
-          <input class="map-form-input" type="text" name="mapName" placeholder="Map name" required>
-          <button class="add-map-button" type="submit">Add</button>
+          <label class="form-label" for="mapName">New Map</label>
+          <div>
+            <input class="map-form-input" type="text" name="mapName" placeholder="Map name" required>
+            <button class="add-map-button" type="submit">Add</button>
+          </div>
         </form>
       </div>
     </section>
