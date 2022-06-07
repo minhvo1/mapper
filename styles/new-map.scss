@@ -1,19 +1,37 @@
 .add-map-form {
-  width: 15rem;
+  width: 17rem;
+  margin-top: 0.5rem;
   margin-left: 0.4rem;
 }
 
+
+.add-map-form div {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+}
+
 .map-form-input {
-  width: 100%;
+  width: 70%;
   border-style: none;
   border-bottom: 0.1rem solid black;
   background-color: #f9f9fb;
-  margin-top: 1rem;
+
 }
 
 .add-map-button {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  width: 3.5rem;
+  height: 2.5rem;
+  border: 0.1rem #ccd2db;
+  background-color: #dadfe8;
+  color: rgb(87, 84, 84);
+  font-weight: 600;
+  border-radius: 0.5rem;
+  box-shadow: 0.1rem 0.1rem #ced3db;
+  cursor: pointer;
 }
 
 .form-label {
