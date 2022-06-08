@@ -46,7 +46,7 @@ module.exports = (db) => {
 
   router.post("/logout", (req, res) => {
     req.session = null;
-    res.render('login');
+    res.render("login");
   });
 
   router.get("/register", (req, res) => {
@@ -82,7 +82,7 @@ module.exports = (db) => {
           .then((data) => {
             const user = data.rows[0];
             req.session.userId = user.id;
-            return res.redirect('/');
+            return res.redirect("/");
           })
           .catch((err) => {
             res.status(500).json({ error: err.message });
@@ -94,7 +94,14 @@ module.exports = (db) => {
   });
 
   router.get("/me", authUser, (req, res) => {
-    db.query(`SELECT * FROM users WHERE users.id = $1`, [req.session.userId])
+    db.query(
+      `SELECT users.first_name, users.last_name, users.email, ARRAY_AGG(maps.map_name) as map_lists
+              FROM users JOIN maps ON maps.creator_id = users.id
+              WHERE users.id = $1
+              GROUP BY users.first_name, users.last_name, users.email
+              `,
+      [req.session.userId]
+    )
       .then((data) => {
         const user = data.rows[0];
         res.send({ message: "user profile", data: user });
@@ -106,5 +113,6 @@ module.exports = (db) => {
   router.post("/", (req, res) => {
     res.send({ message: "user register" });
   });
+
   return router;
 };
