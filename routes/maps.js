@@ -129,9 +129,15 @@ module.exports = (db) => {
     `;
     db.query(query, [lat, long, req.session.userId])
       .then((result) => {
+        if (!result.rows.length) {
+          return res.status(400).send({ message: "not your marker" });
+        }
         res.send({ message: "success delete", data: result.rows[0] });
       })
-      .catch((err) => res.status(500).send({ error: err.message }));
+      .catch((err) => {
+        console.log(err);
+        res.status(500).send({ error: err.message });
+      });
   });
 
   // get a point info
@@ -157,17 +163,30 @@ module.exports = (db) => {
     const { markerName, markerDesc, markerImgUrl } = req.body;
     console.log(req.body);
 
-    const query = `
+    const checkQuery = `
+      SELECT * FROM points
+      WHERE lat = $1
+      AND long = $2
+      AND creator_id = $3
+    `;
+    db.query(checkQuery, [lat, long, req.session.userId])
+      .then((result) => {
+        if (!result.rows.length) {
+          return res.status(400).send({ message: "not your marker" });
+        }
+        const query = `
       UPDATE points
       SET title = $1, description = $2, image_url = $3
       WHERE lat = $4
       AND long = $5
       RETURNING *
     `;
-    db.query(query, [markerName, markerDesc, markerImgUrl, lat, long])
-      .then((result) => {
-        console.log(result.rows);
-        res.send({ message: "edit", data: result.rows[0] });
+        db.query(query, [markerName, markerDesc, markerImgUrl, lat, long])
+          .then((result) => {
+            console.log(result.rows);
+            res.send({ message: "edit", data: result.rows[0] });
+          })
+          .catch((err) => res.status(500).send({ error: err.message }));
       })
       .catch((err) => res.status(500).send({ error: err.message }));
   });

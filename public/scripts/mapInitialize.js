@@ -51,8 +51,10 @@ $(document).ready(function () {
               type: "DELETE",
               url: `/api/maps/points?lat=${lat}&long=${long}`,
               success: (result) => {
-                console.log("deleted", result.data);
                 map.removeLayer(layer);
+              },
+              error: (err) => {
+                alert(err.responseJSON.message);
               },
             });
           });
@@ -69,6 +71,7 @@ $(document).ready(function () {
               success: (result) => {
                 layer.bindPopup(renderEditForm(result.data));
 
+                //inside edit form
                 $(".edit-marker-form").on("submit", function (e) {
                   e.preventDefault();
                   const data = $(this).serialize();
@@ -81,7 +84,8 @@ $(document).ready(function () {
                       layer.bindPopup(markerPopup(editedRes.data));
                     },
                     error: (err) => {
-                      console.log("ERROR", err.message);
+                      alert(err.responseJSON.message);
+                      layer.bindPopup(markerPopup(result.data));
                     },
                   });
                 });
