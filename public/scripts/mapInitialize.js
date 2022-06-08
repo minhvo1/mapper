@@ -34,6 +34,11 @@ $(document).ready(function () {
     });
   });
 
+  $(".delete-marker-btn").on("click", function (e) {
+    e.preventDefault();
+    window.map.removeLayer(marker);
+  });
+
   createMarkers();
 
   marker.on("click", function (e) {
@@ -45,8 +50,10 @@ const markerPopup = (markerInfo) => {
   const $popUpInfo = `
     <p>${markerInfo.title}</p>
     <p>${markerInfo.description}</p>
-    <img src="../assets/123.jpg" style="width: 200px"/>
+    <img src="${markerInfo.image_url}" style="width: 200px"></img>
+
   `;
+
   {
     /* <img src="${markerInfo.image_url}"></img> */
   }
