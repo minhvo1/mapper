@@ -47,13 +47,21 @@
     </section>
     <section class="user-welcome">
       <p><strong>Hi, <%= userInfo.first_name %></strong></p>
-      <form action="/api/users/logout" method="POST">
-        <button class="logout-button" type="submit">Sign out</button>
-      </form>
+      <div class="user-action-buttons">
+        <!-- User profile button -->
+        <form action="/api/users/me" method="GET">
+          <button class="profile-button" type="submit">Profile</button>
+        </form>
+        <!-- Log out button -->
+        <form action="/api/users/logout" method="GET">
+          <button class="logout-button" type="submit">Sign out</button>
+        </form>
+
+      </div>
     </section>
 
     <!-- User maps menu -->
-    <p id="user-maps-header">Your Maps</p>
+    <p id="user-maps-header">Maps</p>
     <section class="user-menu">
       <div class="user-maps">
         <ul class="map-list" style="list-style: square">

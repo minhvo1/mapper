@@ -44,7 +44,7 @@ module.exports = (db) => {
       });
   });
 
-  router.post("/logout", (req, res) => {
+  router.get("/logout", (req, res) => {
     req.session = null;
     res.render("login");
   });
