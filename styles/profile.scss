@@ -1,0 +1,147 @@
+.profile-page {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-tab {
+  width: 60rem;
+  height: 40rem;
+  background-color: #f9f9fb;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3.5rem;
+}
+
+.profile-name {
+  width:90%;
+  height: 4rem;
+  background-color: #f9f9fb;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+#profile-first-last-name {
+  margin: 0;
+  font-weight: 600;
+  font-size: 3rem;
+}
+
+#user-profile-label {
+  margin: 0;
+  font-size: 2rem;
+}
+/* Email */
+
+.profile-email {
+  width:90%;
+  height: 3rem;
+  background-color: #f9f9fb;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.profile-email-right {
+  height: 100%;
+  width: 60%;
+  background-color:#e2e5ee;
+  border-radius: 0.7rem;
+  padding-left: 1.3rem;
+  box-shadow: 0.1rem 0.1rem #ced3db;
+
+}
+
+/* Maps Created */
+.profile-maps-created {
+  width:90%;
+  height: 11rem;
+  background-color: #f9f9fb;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.profile-maps-created-right {
+  height: 100%;
+  width: 60%;
+  background-color:#e2e5ee;
+  border-radius: 0.7rem;
+  padding-left: 0.5rem;
+  box-shadow: 0.1rem 0.1rem #ced3db;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.map-created-list {
+
+}
+
+.profile-maps-created-inner {
+
+}
+
+/* Maps Favorited */
+.profile-maps-favorited {
+  width:90%;
+  height: 11rem;
+  background-color: #f9f9fb;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.profile-maps-favorited-right {
+  height: 100%;
+  width: 60%;
+  background-color:#e2e5ee;
+  border-radius: 0.7rem;
+  padding-left: 0.5rem;
+  box-shadow: 0.1rem 0.1rem #ced3db;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.profile-maps-favorited-inner {
+
+}
+
+.tab-info {
+  margin: 1rem;
+  border-radius: 0.7rem;
+}
+
+.section-headers {
+  padding-left: 1rem;
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+::-webkit-scrollbar {
+  background-color: #e2e5ee;
+  border-radius: 0.7rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #d6d9e0;
+  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
+  border-radius: 1rem;
+
+}
+
+::-webkit-scrollbar-corner {
+  background-color: #f9f9fb;
+}
+
+
+
+
+
