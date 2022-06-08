@@ -17,6 +17,7 @@ module.exports = (db) => {
     db.query(query)
       .then((data) => {
         const maps = data.rows;
+
         res.send({ message: "map lists", data: maps });
       })
       .catch((err) => res.status(500).send({ error: err.message }));
@@ -101,7 +102,7 @@ module.exports = (db) => {
     if (!id) return res.status(400).send({ message: "invalid /:id" });
 
     const query = `
-      SELECT maps.id as map_id, maps.map_name, points.lat, points.long, points.title, points.description,
+      SELECT maps.id as map_id, maps.map_name, points.id AS point_id, points.lat, points.long, points.title, points.description,
               points.image_url, points.created_at
       FROM maps
       JOIN points ON points.map_id = maps.id
@@ -112,27 +113,23 @@ module.exports = (db) => {
     db.query(query, [id])
       .then((data) => {
         const map = data.rows;
+        console.log(map);
         res.send({ message: "a map", data: map });
       })
       .catch((err) => res.status(500).send({ error: err.message }));
   });
 
-  router.delete("/points", (req, res) => {
-    const { lat, long } = req.query;
+  router.delete("/points/:id", (req, res) => {
+    const { id } = req.params;
 
     const query = `
       DELETE FROM points
-      WHERE lat = $1
-      AND long = $2
-      AND creator_id = $3
-      RETURNING *
+      WHERE creator_id = $1
+      AND id = $2
     `;
-    db.query(query, [lat, long, req.session.userId])
+    db.query(query, [req.session.userId, id])
       .then((result) => {
-        if (!result.rows.length) {
-          return res.status(400).send({ message: "not your marker" });
-        }
-        res.send({ message: "success delete", data: result.rows[0] });
+        res.send({ message: "success delete" });
       })
       .catch((err) => {
         res.status(500).send({ error: err.message });
@@ -140,33 +137,32 @@ module.exports = (db) => {
   });
 
   // get a point info
-  router.get("/point/single", (req, res) => {
-    const { lat, long } = req.query;
+  router.get("/point/:id", (req, res) => {
+    const { id } = req.params;
 
     const query = `
       SELECT * FROM points
-      WHERE lat = $1
-      AND long = $2
+      WHERE id = $1
     `;
-    db.query(query, [lat, long])
+    db.query(query, [id])
       .then((result) => {
+        // console.log(result.rows);
         res.send({ message: "edit", data: result.rows[0] });
       })
       .catch((err) => res.status(500).send({ error: err.message }));
   });
 
   // edit a point info
-  router.patch("/point/edit", (req, res) => {
-    const { lat, long } = req.query;
+  router.patch("/point/:id", (req, res) => {
+    const { id } = req.params;
     const { markerName, markerDesc, markerImgUrl } = req.body;
 
     const checkQuery = `
       SELECT * FROM points
-      WHERE lat = $1
-      AND long = $2
-      AND creator_id = $3
+      WHERE id = $1
+      AND creator_id = $2
     `;
-    db.query(checkQuery, [lat, long, req.session.userId])
+    db.query(checkQuery, [id, req.session.userId])
       .then((result) => {
         if (!result.rows.length) {
           return res.status(400).send({ message: "not your marker" });
@@ -174,11 +170,17 @@ module.exports = (db) => {
         const query = `
           UPDATE points
           SET title = $1, description = $2, image_url = $3
-          WHERE lat = $4
-          AND long = $5
+          WHERE id = $4
+          AND creator_id = $5
           RETURNING *
         `;
-        db.query(query, [markerName, markerDesc, markerImgUrl, lat, long])
+        db.query(query, [
+          markerName,
+          markerDesc,
+          markerImgUrl,
+          id,
+          req.session.userId,
+        ])
           .then((result) => {
             res.send({ message: "edit", data: result.rows[0] });
           })

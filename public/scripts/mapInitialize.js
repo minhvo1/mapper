@@ -4,13 +4,11 @@ $(document).ready(function () {
 
   window.map = initializeMap();
 
-  window.markers = [];
-
   $(".map-list").on("click", "div", function () {
     const mapId = $(this).children().attr("data-input");
-    // console.log(mapId);
+
     window.currentMapId = mapId;
-    // remove markers before render new markers
+
     renderAllMarkers();
     //delete & edit markers
     editDeleteHandler();
@@ -21,8 +19,7 @@ $(document).ready(function () {
 
 const markerPopup = (markerInfo) => {
   const $popUpInfo = `
-    <div class="marker-user" data-user="${window.currentUser}"></div>
-    <div class="marker-info">
+    <div class="marker-info" data-point="${markerInfo.point_id}">
       <p class="marker-info-title">${markerInfo.title}</p>
       <p class="marker-info-description">${markerInfo.description}</p>
       <img class="marker-info-img" src="${markerInfo.image_url}" style="width: 200px"></img>
@@ -30,31 +27,28 @@ const markerPopup = (markerInfo) => {
         <button class="delete-marker-btn">Delete</button>
         <button class="edit-marker-btn">Edit</button>
       </div>
-    </div>
   `;
   return $popUpInfo;
 };
 
 const renderAllMarkers = () => {
-  if (window.markers) {
-    for (let i = 0; i < window.markers.length; i++) {
-      window.map.removeLayer(window.markers[i]);
-    }
-  }
-
+  // removes markers before render new markers
+  window.map.eachLayer((layer) => {
+    if (!layer._url) window.map.removeLayer(layer);
+  });
+  // get all markers
   $.ajax({
     type: "GET",
     url: `/api/maps/${window.currentMapId}`,
     success: (result) => {
       const points = result.data;
       for (const point of points) {
-        let marker = new L.Marker([point.lat, point.long]).bindPopup(
+        console.log(point);
+        window.marker = new L.Marker([point.lat, point.long]).bindPopup(
           markerPopup(point),
           { maxWidth: "auto" }
         );
-        window.markers.push(marker);
-        window.map.addLayer(marker);
-        // console.log(map);
+        window.map.addLayer(window.marker);
       }
     },
   });
@@ -68,10 +62,16 @@ const createMarkers = () => {
       return;
     }
 
-    window.marker = new L.marker([event.latlng.lat, event.latlng.lng]);
+    let marker = new L.marker([event.latlng.lat, event.latlng.lng]);
+    window.marker = marker;
 
-    window.map.addLayer(window.marker);
-    window.marker.bindPopup(renderMarkerInfoForm()).openPopup();
+    window.map.addLayer(marker);
+    marker.bindPopup(renderMarkerInfoForm()).openPopup();
+
+    marker.getPopup().on("remove", function () {
+      window.map.removeLayer(marker);
+      renderAllMarkers();
+    });
 
     $(".marker-form").on("submit", function (e) {
       e.preventDefault();
@@ -85,22 +85,15 @@ const createMarkers = () => {
         url: `/api/maps/${window.currentMapId}`,
         data,
         success: function (result) {
-          console.log(result);
-          window.markers.push(window.marker);
-          window.marker.closePopup();
-          window.marker.bindPopup(markerPopup(result.data)).openPopup();
+          marker.closePopup();
+          marker.bindPopup(markerPopup(result.data)).openPopup();
         },
         error: function (err) {
           console.log(err);
           alert(err.responseJSON.message);
-          window.map.removeLayer(window.marker);
+          window.map.removeLayer(marker);
         },
       });
-    });
-
-    window.marker.getPopup().on("remove", function () {
-      window.map.removeLayer(window.marker);
-      renderAllMarkers();
     });
   });
 };
@@ -162,20 +155,21 @@ const editDeleteHandler = () => {
   $(document).ajaxComplete(function () {
     window.map.eachLayer((layer) => {
       layer.on("click", function (e) {
+        const markerId = $(".marker-info").attr("data-point");
+
         $(".delete-marker-btn").on("click", function (e) {
           e.preventDefault();
 
-          const lat = layer._latlng.lat;
-          const long = layer._latlng.lng;
-
           $.ajax({
             type: "DELETE",
-            url: `/api/maps/points?lat=${lat}&long=${long}`,
+            url: `/api/maps/points/${markerId}`,
             success: (result) => {
               window.map.removeLayer(layer);
+              renderAllMarkers();
             },
             error: (err) => {
               alert(err.responseJSON.message);
+              renderAllMarkers();
             },
           });
         });
@@ -186,15 +180,11 @@ const editDeleteHandler = () => {
           const lat = layer._latlng.lat;
           const long = layer._latlng.lng;
 
-          console.log(layer);
-          console.log(window.markers);
-
           $.ajax({
             type: "GET",
-            url: `/api/maps/point/single?lat=${lat}&long=${long}`,
+            url: `/api/maps/point/${markerId}`,
             success: (result) => {
               layer.bindPopup(renderEditForm(result.data));
-
               //inside edit form
               $(".edit-marker-form").on("submit", function (e) {
                 e.preventDefault();
@@ -202,14 +192,14 @@ const editDeleteHandler = () => {
 
                 $.ajax({
                   type: "PATCH",
-                  url: `/api/maps/point/edit?lat=${lat}&long=${long}`,
+                  url: `/api/maps/point/${markerId}`,
                   data,
                   success: (editedRes) => {
-                    return layer.bindPopup(markerPopup(editedRes.data));
+                    layer.bindPopup(markerPopup(editedRes.data)).closePopup();
                   },
                   error: (err) => {
                     alert(err.responseJSON.message);
-                    return layer.bindPopup(markerPopup(result.data));
+                    layer.bindPopup(markerPopup(result.data));
                   },
                 });
               });
