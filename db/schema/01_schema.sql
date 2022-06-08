@@ -25,8 +25,8 @@ CREATE TABLE maps (
 
 CREATE TABLE points (
   id SERIAL PRIMARY KEY NOT NULL,
-  lat FLOAT NOT NULL,
-  long FLOAT NOT NULL,
+  lat TEXT NOT NULL,
+  long TEXT NOT NULL,
   title VARCHAR(255),
   description text,
   image_url VARCHAR(255),

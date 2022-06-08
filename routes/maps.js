@@ -87,6 +87,23 @@ module.exports = (db) => {
       .catch((err) => res.status(500).send({ error: err.message }));
   });
 
+  router.delete("/points", (req, res) => {
+    const { lat, long } = req.query;
+    console.log(parseFloat(lat), parseFloat(long));
+    const query = `
+      DELETE FROM points
+      WHERE lat = $1
+      AND long = $2
+      RETURNING *
+    `;
+    db.query(query, [lat, long])
+      .then((result) => {
+        console.log(result.rows);
+        res.send({ message: "success delete", data: result.rows[0] });
+      })
+      .catch((err) => res.status(500).send({ error: err.message }));
+  });
+
   // delete a map
   router.delete("/:id", (req, res) => {
     const { id } = req.params;

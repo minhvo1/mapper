@@ -29,21 +29,37 @@ $(document).ready(function () {
           );
           window.markers.push(marker);
           map.addLayer(marker);
+          // console.log(map);
         }
       },
     });
-  });
 
-  $(".delete-marker-btn").on("click", function (e) {
-    e.preventDefault();
-    window.map.removeLayer(marker);
+    //delete / edit markers
+    $(document).ajaxComplete(function () {
+      map.eachLayer((layer) => {
+        // console.log(layer);
+        layer.on("click", function (e) {
+          $(".delete-marker-btn").on("click", function (e) {
+            e.preventDefault();
+            // console.log(layer._latlng);
+            const lat = layer._latlng.lat;
+            const long = layer._latlng.lng;
+
+            $.ajax({
+              type: "DELETE",
+              url: `/api/maps/points?lat=${lat}&long=${long}`,
+              success: (result) => {
+                console.log("deleted", result.data);
+                map.removeLayer(layer);
+              },
+            });
+          });
+        });
+      });
+    });
   });
 
   createMarkers();
-
-  marker.on("click", function (e) {
-    console.log(e);
-  });
 });
 
 const markerPopup = (markerInfo) => {
@@ -51,9 +67,8 @@ const markerPopup = (markerInfo) => {
     <p>${markerInfo.title}</p>
     <p>${markerInfo.description}</p>
     <img src="${markerInfo.image_url}" style="width: 200px"></img>
-
+    <button class="delete-marker-btn">delete</button>
   `;
-
   {
     /* <img src="${markerInfo.image_url}"></img> */
   }
@@ -72,9 +87,9 @@ const createMarkers = () => {
     window.map.addLayer(marker);
     marker.bindPopup(renderMarkerInfoForm()).openPopup();
 
-    marker.getPopup().on("remove", function () {
-      window.map.removeLayer(marker);
-    });
+    // marker.getPopup().on("remove", function () {
+    //   window.map.removeLayer(marker);
+    // });
 
     $(".marker-form").on("submit", function (e) {
       e.preventDefault();
@@ -90,9 +105,9 @@ const createMarkers = () => {
         success: function (result) {
           console.log(result);
           window.markers.push(marker);
-          // marker.closePopup();
-          // marker.unbindPopup();
-          marker.bindPopup(markerPopup(result.data));
+          marker.closePopup();
+          marker.unbindPopup();
+          marker.bindPopup(markerPopup(result.data)).openPopup();
         },
         error: function () {
           window.map.removeLayer(marker);
