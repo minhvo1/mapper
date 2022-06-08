@@ -46,11 +46,15 @@ $(document).ready(function () {
 const markerPopup = (markerInfo) => {
   const $popUpInfo = `
     <div class="marker-user" data-user="${window.currentUser}"></div>
-    <p>${markerInfo.title}</p>
-    <p>${markerInfo.description}</p>
-    <img src="${markerInfo.image_url}" style="width: 200px"></img>
-    <button class="delete-marker-btn">delete</button>
-    <button class="edit-marker-btn">edit</button>
+    <div class="marker-info">
+      <p class="marker-info-title">${markerInfo.title}</p>
+      <p class="marker-info-description">${markerInfo.description}</p>
+      <img class="marker-info-img" src="${markerInfo.image_url}" style="width: 200px"></img>
+      <div class="marker-info-buttons">
+        <button class="delete-marker-btn">Delete</button>
+        <button class="edit-marker-btn">Edit</button>
+      </div>
+    </div>
   `;
 
   return $popUpInfo;
@@ -122,7 +126,9 @@ const renderEditForm = (data) => {
         <input type="text" id="markerName" name="markerName" placeholder="Title" value="${data.title}"></input>
         <input type="textarea" id="markerDesc" name="markerDesc" placeholder="Description" value="${data.description}"></input>
         <input type="text" id="markerImgUrl" name="markerImgUrl" placeholder="Image URL" value="${data.image_url}"></input>
-        <button><strong>Edit</strong></button>
+        <div class="edit-marker-form-button">
+          <button><strong>Edit</strong></button>
+        </div>
       </form>
     </div>
   `;

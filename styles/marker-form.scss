@@ -1,3 +1,5 @@
+/*Add a marker*/
+
 .leaflet-container {
   font-family: 'Joan';
   font-size: 0.5rem;
@@ -41,7 +43,7 @@
 
 .custom-popup .leaflet-popup-content-wrapper .marker-form button{
   background:rgb(218, 223, 232);
-  width: 4rem;
+  width: 4.5rem;
   margin-bottom: 0.2rem;
   margin-top: 0.2rem;
   border: none;
@@ -60,3 +62,37 @@
 .leaflet-popup-tip {
   background: #f9f9fb !important;
 }
+
+/*Edit a marker*/
+
+.edit-marker-form input {
+  background:transparent;
+  height: 2.1rem;
+  margin-bottom: 1em;
+  border: none;
+  border-bottom: 0.1rem solid #464b52;
+  color: #464b52;
+  text-size-adjust: 80%;
+}
+
+.edit-marker-form-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.edit-marker-form-button button {
+  background:rgb(218, 223, 232);
+  width: 4.5rem;
+  margin-bottom: 0.2rem;
+  margin-top: 0.2rem;
+  border: none;
+  box-shadow: 0.1rem 0.1rem #ced3db;
+  color: rgb(87, 84, 84);
+  border-radius: 0.2em;
+  padding: 0.3rem;
+  cursor: pointer;
+}
+
+
