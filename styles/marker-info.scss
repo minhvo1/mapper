@@ -1,0 +1,48 @@
+.marker-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.marker-info p {
+  margin-top: 0.2rem !important;
+  margin-bottom: 0.2rem !important;
+}
+
+.marker-info-title {
+  font-weight: 600;
+}
+
+.marker-info-description {
+  font-style: italic;
+  padding-bottom: 1rem;
+}
+
+.marker-info-img {
+  margin: 0;
+}
+
+.marker-info-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  padding-top: 1rem;
+}
+
+.marker-info-buttons button {
+  background:rgb(218, 223, 232);
+  width: 4.5rem;
+  margin-bottom: 0.2rem;
+  margin-top: 0.2rem;
+  border: none;
+  box-shadow: 0.1rem 0.1rem #ced3db;
+  color: rgb(87, 84, 84);
+  border-radius: 0.2em;
+  font-weight: 600;
+  padding: 0.3rem;
+  cursor: pointer;
+}
+

@@ -53,7 +53,7 @@
 .profile-email-right {
   height: 100%;
   width: 60%;
-  background-color:#e2e5ee;
+  background-color:#eef0f5;
   border-radius: 0.7rem;
   padding-left: 1.3rem;
   box-shadow: 0.1rem 0.1rem #ced3db;
@@ -73,7 +73,7 @@
 .profile-maps-created-right {
   height: 100%;
   width: 60%;
-  background-color:#e2e5ee;
+  background-color:#eef0f5;
   border-radius: 0.7rem;
   padding-left: 0.5rem;
   box-shadow: 0.1rem 0.1rem #ced3db;
@@ -99,7 +99,7 @@
 .profile-maps-favorited-right {
   height: 100%;
   width: 60%;
-  background-color:#e2e5ee;
+  background-color:#eef0f5;
   border-radius: 0.7rem;
   padding-left: 0.5rem;
   box-shadow: 0.1rem 0.1rem #ced3db;
@@ -115,17 +115,18 @@
 .tab-info {
   margin: 1rem;
   border-radius: 0.7rem;
-  letter-spacing: 0.08rem;
+
 }
 
 .section-headers {
   padding-left: 0.5rem;
   font-weight: 600;
   font-size: 1.05rem;
+  letter-spacing: 0.08rem;
 }
 
 ::-webkit-scrollbar {
-  background-color: #e2e5ee;
+  background-color: #eef0f5;
   border-radius: 0.7rem;
 }
 

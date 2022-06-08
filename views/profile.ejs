@@ -29,7 +29,7 @@
     <div class="profile-tab">
       <!-- Profile name -->
       <div class="profile-name tab-info">
-        <p id="profile-first-last-name">Minh Vo</p>
+        <p id="profile-first-last-name"><%= user.first_name %> <%= user.last_name %></p>
         <p id="user-profile-label">User Profile</p>
       </div>
       <!-- Profile email -->
@@ -38,7 +38,7 @@
           <p class="section-headers">Email</p>
         </div>
         <div class="profile-email-right">
-          <p>test@gmail.com</p>
+          <p><%= user.email %></p>
         </div>
       </div>
       <!-- Profile map created -->
@@ -49,18 +49,9 @@
 
         <div class="profile-maps-created-right">
           <ul class="maps-created-list" style="list-style: square">
-            <li>Map 1</li>
-            <li>Map 2</li>
-            <li>Map 1</li>
-            <li>Map 2</li>
-            <li>Map 1</li>
-            <li>Map 2</li>
-            <li>Map 1</li>
-            <li>Map 2</li>
-            <li>Map 1</li>
-            <li>Map 2</li>
-            <li>Map 1</li>
-            <li>Map 2</li>
+            <% for (let map of user.map_lists) { %>
+            <li><%= map %></li>
+            <% } %>
           </ul>
         </div>
       </div>
@@ -73,17 +64,7 @@
         <div class="profile-maps-favorited-right">
           <ul class="maps-favorited-list" style="list-style: square">
             <li>Map 1</li>
-            <li>Map 2</li>
-            <li>Map 1</li>
-            <li>Map 2</li>
-            <li>Map 1</li>
-            <li>Map 2</li>
-            <li>Map 1</li>
-            <li>Map 2</li>
-            <li>Map 1</li>
-            <li>Map 2</li>
-            <li>Map 1</li>
-            <li>Map 2</li>
+
           </ul>
         </div>
       </div>
