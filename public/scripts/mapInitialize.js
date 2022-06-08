@@ -11,32 +11,11 @@ $(document).ready(function () {
     // console.log(mapId);
     window.currentMapId = mapId;
     // remove markers before render new markers
-
-    if (window.markers) {
-      for (let i = 0; i < window.markers.length; i++) {
-        window.map.removeLayer(window.markers[i]);
-      }
-    }
-
-    $.ajax({
-      type: "GET",
-      url: `/api/maps/${mapId}`,
-      success: (result) => {
-        const points = result.data;
-        for (const point of points) {
-          let marker = new L.Marker([point.lat, point.long]).bindPopup(
-            markerPopup(point),
-            { maxWidth: "auto" }
-          );
-          window.markers.push(marker);
-          window.map.addLayer(marker);
-          // console.log(map);
-        }
-      },
-    });
+    renderAllMarkers();
     //delete & edit markers
     editDeleteHandler();
   });
+
   createMarkers();
 });
 
@@ -53,10 +32,32 @@ const markerPopup = (markerInfo) => {
       </div>
     </div>
   `;
-
   return $popUpInfo;
+};
 
-  /* <img src="${markerInfo.image_url}"></img> */
+const renderAllMarkers = () => {
+  if (window.markers) {
+    for (let i = 0; i < window.markers.length; i++) {
+      window.map.removeLayer(window.markers[i]);
+    }
+  }
+
+  $.ajax({
+    type: "GET",
+    url: `/api/maps/${window.currentMapId}`,
+    success: (result) => {
+      const points = result.data;
+      for (const point of points) {
+        let marker = new L.Marker([point.lat, point.long]).bindPopup(
+          markerPopup(point),
+          { maxWidth: "auto" }
+        );
+        window.markers.push(marker);
+        window.map.addLayer(marker);
+        // console.log(map);
+      }
+    },
+  });
 };
 
 const createMarkers = () => {
@@ -67,8 +68,7 @@ const createMarkers = () => {
       return;
     }
 
-    let marker = new L.marker([event.latlng.lat, event.latlng.lng]);
-    window.marker = marker;
+    window.marker = new L.marker([event.latlng.lat, event.latlng.lng]);
 
     window.map.addLayer(window.marker);
     window.marker.bindPopup(renderMarkerInfoForm()).openPopup();
@@ -96,6 +96,11 @@ const createMarkers = () => {
           window.map.removeLayer(window.marker);
         },
       });
+    });
+
+    window.marker.getPopup().on("remove", function () {
+      window.map.removeLayer(window.marker);
+      renderAllMarkers();
     });
   });
 };
@@ -214,17 +219,7 @@ const editDeleteHandler = () => {
             },
           });
           layer.getPopup().on("remove", function (e) {
-            // console.log("close popup event", e);
-            window.map.eachLayer((l) => {
-              if (!l._url) {
-                // console.log(l);
-                window.map.removeLayer(l);
-              }
-            });
-            window.markers.forEach((marker) => {
-              console.log(marker);
-              window.map.addLayer(marker);
-            });
+            renderAllMarkers();
           });
         });
       });
