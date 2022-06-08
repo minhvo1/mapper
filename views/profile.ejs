@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WikiMap - Profile</title>
+
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+  <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/profile.css" type="text/css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+    integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+    crossorigin="" />
+  <link href="https://fonts.googleapis.com/css2?family=Patua+One&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Joan&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.Default.css" />
+
+  <!-- Scripts -->
+  <script type="text/javascript" src="/scripts/addMapsUserProfile.js"></script>
+
+</head>
+
+<body>
+  <div class="profile-page">
+    <div class="profile-tab">
+      <!-- Profile name -->
+      <div class="profile-name tab-info">
+        <p id="profile-first-last-name">Minh Vo</p>
+        <p id="user-profile-label">User Profile</p>
+      </div>
+      <!-- Profile email -->
+      <div class="profile-email tab-info">
+        <div class="profile-email-left profile-info" >
+          <p class="section-headers">Email</p>
+        </div>
+        <div class="profile-email-right">
+          <p>test@gmail.com</p>
+        </div>
+      </div>
+      <!-- Profile map created -->
+      <div class="profile-maps-created tab-info">
+        <div class="profile-maps-created-left profile-info">
+          <p class="section-headers">Maps created</p>
+        </div>
+
+        <div class="profile-maps-created-right">
+          <div class="profile-maps-created-inner">
+            <ul class="maps-created-list" style="list-style: square">
+              <li>Map 1</li>
+              <li>Map 2</li>
+              <li>Map 1</li>
+              <li>Map 2</li>
+              <li>Map 1</li>
+              <li>Map 2</li>
+              <li>Map 1</li>
+              <li>Map 2</li>
+              <li>Map 1</li>
+              <li>Map 2</li>
+              <li>Map 1</li>
+              <li>Map 2</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- Profile map favorited -->
+      <div class="profile-maps-favorited tab-info">
+        <div class="profile-maps-favorited-left profile-info">
+          <p class="section-headers">Maps favorited</p>
+        </div>
+
+        <div class="profile-maps-favorited-right">
+          <div class="profile-maps-favorited-inner">
+            <ul class="maps-favorited-list">
+
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>
