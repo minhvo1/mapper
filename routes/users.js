@@ -104,7 +104,7 @@ module.exports = (db) => {
     )
       .then((data) => {
         const user = data.rows[0];
-        res.render('profile');
+        res.render('profile', {user});
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
