@@ -54,6 +54,8 @@ $(document).ready(function () {
               },
             });
           });
+
+          $(".edit-marker-btn");
         });
       });
     });
@@ -68,6 +70,7 @@ const markerPopup = (markerInfo) => {
     <p>${markerInfo.description}</p>
     <img src="${markerInfo.image_url}" style="width: 200px"></img>
     <button class="delete-marker-btn">delete</button>
+    <button class="edit-marker-btn">edit</button>
   `;
   {
     /* <img src="${markerInfo.image_url}"></img> */
