@@ -81,12 +81,9 @@
   overflow-x: hidden;
 }
 
-.map-created-list {
-
-}
-
-.profile-maps-created-inner {
-
+.maps-created-list li {
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
 }
 
 /* Maps Favorited */
@@ -110,17 +107,19 @@
   overflow-x: hidden;
 }
 
-.profile-maps-favorited-inner {
-
+.maps-favorited-list li {
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
 }
 
 .tab-info {
   margin: 1rem;
   border-radius: 0.7rem;
+  letter-spacing: 0.08rem;
 }
 
 .section-headers {
-  padding-left: 1rem;
+  padding-left: 0.5rem;
   font-weight: 600;
   font-size: 1.05rem;
 }
