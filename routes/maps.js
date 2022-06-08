@@ -175,12 +175,12 @@ module.exports = (db) => {
           return res.status(400).send({ message: "not your marker" });
         }
         const query = `
-      UPDATE points
-      SET title = $1, description = $2, image_url = $3
-      WHERE lat = $4
-      AND long = $5
-      RETURNING *
-    `;
+          UPDATE points
+          SET title = $1, description = $2, image_url = $3
+          WHERE lat = $4
+          AND long = $5
+          RETURNING *
+        `;
         db.query(query, [markerName, markerDesc, markerImgUrl, lat, long])
           .then((result) => {
             console.log(result.rows);

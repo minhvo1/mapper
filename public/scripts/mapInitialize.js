@@ -3,7 +3,6 @@ $(document).ready(function () {
   window.currentUser = $(".logo").attr("data-user");
 
   window.map = initializeMap();
-  let map = window.map;
 
   let marker;
   window.markers = [];
@@ -16,7 +15,7 @@ $(document).ready(function () {
 
     if (window.markers) {
       for (let i = 0; i < window.markers.length; i++) {
-        map.removeLayer(window.markers[i]);
+        window.map.removeLayer(window.markers[i]);
       }
     }
 
@@ -31,73 +30,14 @@ $(document).ready(function () {
             { maxWidth: "auto" }
           );
           window.markers.push(marker);
-          map.addLayer(marker);
+          window.map.addLayer(marker);
           // console.log(map);
         }
       },
     });
 
     //delete & edit markers
-    $(document).ajaxComplete(function () {
-      map.eachLayer((layer) => {
-        layer.on("click", function (e) {
-          $(".delete-marker-btn").on("click", function (e) {
-            e.preventDefault();
-
-            const lat = layer._latlng.lat;
-            const long = layer._latlng.lng;
-
-            $.ajax({
-              type: "DELETE",
-              url: `/api/maps/points?lat=${lat}&long=${long}`,
-              success: (result) => {
-                map.removeLayer(layer);
-              },
-              error: (err) => {
-                alert(err.responseJSON.message);
-              },
-            });
-          });
-
-          $(".edit-marker-btn").on("click", function (e) {
-            e.preventDefault();
-
-            const lat = layer._latlng.lat;
-            const long = layer._latlng.lng;
-
-            $.ajax({
-              type: "GET",
-              url: `/api/maps/point/single?lat=${lat}&long=${long}`,
-              success: (result) => {
-                layer.bindPopup(renderEditForm(result.data));
-
-                //inside edit form
-                $(".edit-marker-form").on("submit", function (e) {
-                  e.preventDefault();
-                  const data = $(this).serialize();
-
-                  $.ajax({
-                    type: "PATCH",
-                    url: `/api/maps/point/edit?lat=${lat}&long=${long}`,
-                    data,
-                    success: (editedRes) => {
-                      layer.bindPopup(markerPopup(editedRes.data));
-                    },
-                    error: (err) => {
-                      alert(err.responseJSON.message);
-                      layer.bindPopup(markerPopup(result.data));
-                    },
-                  });
-                });
-              },
-              error: (err) => {
-                console.log(err.message);
-              },
-            });
-          });
-        });
-      });
-    });
+    editDeleteHandler();
   });
 
   createMarkers();
@@ -208,4 +148,67 @@ const initializeMap = () => {
   map.locate({ setView: true, maxZoom: 13, drag: true });
 
   return map;
+};
+
+const editDeleteHandler = () => {
+  $(document).ajaxComplete(function () {
+    window.map.eachLayer((layer) => {
+      layer.on("click", function (e) {
+        $(".delete-marker-btn").on("click", function (e) {
+          e.preventDefault();
+
+          const lat = layer._latlng.lat;
+          const long = layer._latlng.lng;
+
+          $.ajax({
+            type: "DELETE",
+            url: `/api/maps/points?lat=${lat}&long=${long}`,
+            success: (result) => {
+              window.map.removeLayer(layer);
+            },
+            error: (err) => {
+              alert(err.responseJSON.message);
+            },
+          });
+        });
+
+        $(".edit-marker-btn").on("click", function (e) {
+          e.preventDefault();
+
+          const lat = layer._latlng.lat;
+          const long = layer._latlng.lng;
+
+          $.ajax({
+            type: "GET",
+            url: `/api/maps/point/single?lat=${lat}&long=${long}`,
+            success: (result) => {
+              layer.bindPopup(renderEditForm(result.data));
+
+              //inside edit form
+              $(".edit-marker-form").on("submit", function (e) {
+                e.preventDefault();
+                const data = $(this).serialize();
+
+                $.ajax({
+                  type: "PATCH",
+                  url: `/api/maps/point/edit?lat=${lat}&long=${long}`,
+                  data,
+                  success: (editedRes) => {
+                    return layer.bindPopup(markerPopup(editedRes.data));
+                  },
+                  error: (err) => {
+                    alert(err.responseJSON.message);
+                    return layer.bindPopup(markerPopup(result.data));
+                  },
+                });
+              });
+            },
+            error: (err) => {
+              console.log(err.message);
+            },
+          });
+        });
+      });
+    });
+  });
 };
