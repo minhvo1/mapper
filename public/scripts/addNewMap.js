@@ -35,6 +35,12 @@ $(() => {
 
         $(".map-list").append(createMapNameElement(result.data));
         $(".map-form-input").val("");
+        $(".map-list").find('li').find('div').css("background-color", "#f9f9fb");
+        $(".map-list").find('li').find('div').css("box-shadow", "");
+        $(".map-list").find('li').css("font-weight", "400");
+        $(`p[data-input='${window.currentMapId}']`).parent().css("background-color", "#dadfe8");
+        $(`p[data-input='${window.currentMapId}']`).parent().css("box-shadow", "0.1rem 0.1rem #ced3db");
+        $(`p[data-input='${window.currentMapId}']`).parent().parent().css("font-weight", "600");
       },
     });
   });
