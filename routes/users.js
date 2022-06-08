@@ -46,7 +46,7 @@ module.exports = (db) => {
 
   router.post("/logout", (req, res) => {
     req.session = null;
-    res.send({ message: "logout success" });
+    res.render('login');
   });
 
   router.get("/register", (req, res) => {
@@ -59,8 +59,7 @@ module.exports = (db) => {
   });
 
   router.post("/register", (req, res) => {
-    const { firstName, lastName, email, password } = req.body;
-
+    const { first_name, last_name, email, password } = req.body;
     if (!email.length || !password.length) {
       return res.status(400).send({ message: "invalid email or password" });
     }
@@ -78,12 +77,12 @@ module.exports = (db) => {
         const hashedPassword = bcrypt.hashSync(password, 10);
         db.query(
           `INSERT INTO users (first_name, last_name, email, password) VALUES ($1, $2, $3, $4) RETURNING *`,
-          [firstName, lastName, email, hashedPassword]
+          [first_name, last_name, email, hashedPassword]
         )
           .then((data) => {
             const user = data.rows[0];
             req.session.userId = user.id;
-            return res.send({ message: "user created", data: user });
+            return res.redirect('/');
           })
           .catch((err) => {
             res.status(500).json({ error: err.message });
