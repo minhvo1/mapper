@@ -32,7 +32,6 @@ module.exports = (db) => {
     db.query(userQuery, [req.session.userId])
       .then((userResult) => {
         const user = userResult.rows[0];
-        console.log(user);
 
         const query = `
            INSERT INTO maps (map_name, creator_id) VALUES ($1, $2) RETURNING *
@@ -43,7 +42,6 @@ module.exports = (db) => {
             const map = data.rows[0];
             map["creator_name"] = user.first_name;
 
-            console.log(map);
             res.send({ message: "map created", data: map });
           })
           .catch((err) => res.status(500).send({ error: err.message }));
@@ -59,11 +57,13 @@ module.exports = (db) => {
 
     const { lat, long, markerName, markerDesc, markerImgUrl } = req.body;
 
+    if (!lat || !long || !markerName)
+      return res.status(400).send({ message: "need marker title" });
+
     const checkQuery = `
       SELECT id FROM maps WHERE creator_id = $1 AND id = $2
     `;
     db.query(checkQuery, [req.session.userId, mapId]).then((result) => {
-      console.log(result.rows);
       if (!result.rows.length) {
         return res.status(400).send({ message: "not your map" });
       } else {
@@ -135,7 +135,6 @@ module.exports = (db) => {
         res.send({ message: "success delete", data: result.rows[0] });
       })
       .catch((err) => {
-        console.log(err);
         res.status(500).send({ error: err.message });
       });
   });
@@ -143,7 +142,7 @@ module.exports = (db) => {
   // get a point info
   router.get("/point/single", (req, res) => {
     const { lat, long } = req.query;
-    console.log(typeof lat);
+
     const query = `
       SELECT * FROM points
       WHERE lat = $1
@@ -151,7 +150,6 @@ module.exports = (db) => {
     `;
     db.query(query, [lat, long])
       .then((result) => {
-        console.log(result.rows);
         res.send({ message: "edit", data: result.rows[0] });
       })
       .catch((err) => res.status(500).send({ error: err.message }));
@@ -161,7 +159,6 @@ module.exports = (db) => {
   router.patch("/point/edit", (req, res) => {
     const { lat, long } = req.query;
     const { markerName, markerDesc, markerImgUrl } = req.body;
-    console.log(req.body);
 
     const checkQuery = `
       SELECT * FROM points
@@ -183,7 +180,6 @@ module.exports = (db) => {
         `;
         db.query(query, [markerName, markerDesc, markerImgUrl, lat, long])
           .then((result) => {
-            console.log(result.rows);
             res.send({ message: "edit", data: result.rows[0] });
           })
           .catch((err) => res.status(500).send({ error: err.message }));

@@ -4,7 +4,6 @@ $(document).ready(function () {
 
   window.map = initializeMap();
 
-  let marker;
   window.markers = [];
 
   $(".map-list").on("click", "div", function () {
@@ -25,7 +24,7 @@ $(document).ready(function () {
       success: (result) => {
         const points = result.data;
         for (const point of points) {
-          marker = new L.Marker([point.lat, point.long]).bindPopup(
+          let marker = new L.Marker([point.lat, point.long]).bindPopup(
             markerPopup(point),
             { maxWidth: "auto" }
           );
@@ -35,11 +34,9 @@ $(document).ready(function () {
         }
       },
     });
-
     //delete & edit markers
     editDeleteHandler();
   });
-
   createMarkers();
 });
 
@@ -178,6 +175,9 @@ const editDeleteHandler = () => {
           const lat = layer._latlng.lat;
           const long = layer._latlng.lng;
 
+          console.log(layer);
+          console.log(window.markers);
+
           $.ajax({
             type: "GET",
             url: `/api/maps/point/single?lat=${lat}&long=${long}`,
@@ -206,6 +206,19 @@ const editDeleteHandler = () => {
             error: (err) => {
               console.log(err.message);
             },
+          });
+          layer.getPopup().on("remove", function (e) {
+            // console.log("close popup event", e);
+            window.map.eachLayer((l) => {
+              if (!l._url) {
+                // console.log(l);
+                window.map.removeLayer(l);
+              }
+            });
+            window.markers.forEach((marker) => {
+              console.log(marker);
+              window.map.addLayer(marker);
+            });
           });
         });
       });

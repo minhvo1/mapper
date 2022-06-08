@@ -8,10 +8,10 @@ module.exports = (db) => {
 
     db.query(
       `SELECT maps.id, maps.name, users.first_name
-    FROM favourite_maps
-    JOIN maps ON maps.id = map_id
-    JOIN users ON users.id = creator_id
-    WHERE user_id = $1;`,
+        FROM favourite_maps
+        JOIN maps ON maps.id = map_id
+        JOIN users ON users.id = creator_id
+        WHERE user_id = $1;`,
       [userId]
     )
       .then((data) => {

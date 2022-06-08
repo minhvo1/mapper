@@ -6,7 +6,6 @@ const createMapNameElement = (mapInfo) => {
         <p class="map-name" data-input="${mapInfo.id}">
           ${mapInfo.map_name} <span> by ${mapInfo.creator_name}</span>
         </p>
-
       </div>
     </li>
    `;

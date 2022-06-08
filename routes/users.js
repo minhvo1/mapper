@@ -36,7 +36,7 @@ module.exports = (db) => {
           return res.status(422).send({ message: "invalid email/password" });
 
         req.session.userId = user.id;
-        console.log(req.session.userId);
+
         res.redirect("/");
       })
       .catch((err) => {
@@ -104,7 +104,7 @@ module.exports = (db) => {
     )
       .then((data) => {
         const user = data.rows[0];
-        res.render('profile');
+        res.render("profile");
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
