@@ -28,15 +28,41 @@
   background-color:rgb(227, 229, 235);
   padding-bottom: 1.2rem;
   border-bottom: solid 0.1rem rgb(221, 225, 236);
+
 }
 
 .user-welcome p {
-  font-size: 2.2rem;
+  font-size: 2rem;
+  padding-bottom: 0.1rem;
   margin-top: 1.7rem;
   margin-bottom: 0.5rem;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.user-welcome button {
+.user-action-buttons {
+  width: 40%;
+  margin-left: -0.2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.profile-button {
+  width: 3.5rem;
+  height: 1.2rem;
+  border: none;
+  background-color: rgb(227, 229, 235);
+  color: rgb(87, 84, 84);
+  font-size: 0.9rem;
+  font-style: italic;
+  cursor: pointer;
+  padding: 0 0.3rem 0 0;
+  border-right: 0.1rem solid rgb(80, 76, 76);
+}
+
+.logout-button {
   width: 3.5rem;
   height: 1.2rem;
   border: none;
