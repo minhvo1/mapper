@@ -89,7 +89,7 @@ module.exports = (db) => {
 
   router.delete("/points", (req, res) => {
     const { lat, long } = req.query;
-    console.log(parseFloat(lat), parseFloat(long));
+
     const query = `
       DELETE FROM points
       WHERE lat = $1
@@ -100,6 +100,44 @@ module.exports = (db) => {
       .then((result) => {
         console.log(result.rows);
         res.send({ message: "success delete", data: result.rows[0] });
+      })
+      .catch((err) => res.status(500).send({ error: err.message }));
+  });
+
+  // get a point info
+  router.get("/point/single", (req, res) => {
+    const { lat, long } = req.query;
+    console.log(typeof lat);
+    const query = `
+      SELECT * FROM points
+      WHERE lat = $1
+      AND long = $2
+    `;
+    db.query(query, [lat, long])
+      .then((result) => {
+        console.log(result.rows);
+        res.send({ message: "edit", data: result.rows[0] });
+      })
+      .catch((err) => res.status(500).send({ error: err.message }));
+  });
+
+  // edit a point info
+  router.patch("/point/edit", (req, res) => {
+    const { lat, long } = req.query;
+    const { markerName, markerDesc, markerImgUrl } = req.body;
+    console.log(req.body);
+
+    const query = `
+      UPDATE points
+      SET title = $1, description = $2, image_url = $3
+      WHERE lat = $4
+      AND long = $5
+      RETURNING *
+    `;
+    db.query(query, [markerName, markerDesc, markerImgUrl, lat, long])
+      .then((result) => {
+        console.log(result.rows);
+        res.send({ message: "edit", data: result.rows[0] });
       })
       .catch((err) => res.status(500).send({ error: err.message }));
   });
