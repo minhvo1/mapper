@@ -34,14 +34,13 @@ $(document).ready(function () {
       },
     });
 
-    //delete / edit markers
+    //delete & edit markers
     $(document).ajaxComplete(function () {
       map.eachLayer((layer) => {
-        // console.log(layer);
         layer.on("click", function (e) {
           $(".delete-marker-btn").on("click", function (e) {
             e.preventDefault();
-            // console.log(layer._latlng);
+
             const lat = layer._latlng.lat;
             const long = layer._latlng.lng;
 
@@ -55,7 +54,40 @@ $(document).ready(function () {
             });
           });
 
-          $(".edit-marker-btn");
+          $(".edit-marker-btn").on("click", function (e) {
+            e.preventDefault();
+
+            const lat = layer._latlng.lat;
+            const long = layer._latlng.lng;
+
+            $.ajax({
+              type: "GET",
+              url: `/api/maps/point/single?lat=${lat}&long=${long}`,
+              success: (result) => {
+                layer.bindPopup(renderEditForm(result.data));
+
+                $(".edit-marker-form").on("submit", function (e) {
+                  e.preventDefault();
+                  const data = $(this).serialize();
+
+                  $.ajax({
+                    type: "PATCH",
+                    url: `/api/maps/point/edit?lat=${lat}&long=${long}`,
+                    data,
+                    success: (editedRes) => {
+                      layer.bindPopup(markerPopup(editedRes.data));
+                    },
+                    error: (err) => {
+                      console.log("ERROR", err.message);
+                    },
+                  });
+                });
+              },
+              error: (err) => {
+                console.log(err.message);
+              },
+            });
+          });
         });
       });
     });
@@ -72,9 +104,9 @@ const markerPopup = (markerInfo) => {
     <button class="delete-marker-btn">delete</button>
     <button class="edit-marker-btn">edit</button>
   `;
-  {
-    /* <img src="${markerInfo.image_url}"></img> */
-  }
+
+  /* <img src="${markerInfo.image_url}"></img> */
+
   return $popUpInfo;
 };
 
@@ -87,12 +119,10 @@ const createMarkers = () => {
     }
 
     let marker = new L.marker([event.latlng.lat, event.latlng.lng]);
-    window.map.addLayer(marker);
-    marker.bindPopup(renderMarkerInfoForm()).openPopup();
+    window.marker = marker;
 
-    // marker.getPopup().on("remove", function () {
-    //   window.map.removeLayer(marker);
-    // });
+    window.map.addLayer(window.marker);
+    window.marker.bindPopup(renderMarkerInfoForm()).openPopup();
 
     $(".marker-form").on("submit", function (e) {
       e.preventDefault();
@@ -107,13 +137,13 @@ const createMarkers = () => {
         data,
         success: function (result) {
           console.log(result);
-          window.markers.push(marker);
-          marker.closePopup();
-          marker.unbindPopup();
-          marker.bindPopup(markerPopup(result.data)).openPopup();
+          window.markers.push(window.marker);
+          window.marker.closePopup();
+          window.marker.unbindPopup();
+          window.marker.bindPopup(markerPopup(result.data)).openPopup();
         },
         error: function () {
-          window.map.removeLayer(marker);
+          window.map.removeLayer(window.marker);
         },
       });
     });
@@ -129,6 +159,21 @@ const renderMarkerInfoForm = () => {
         <input type="textarea" id="markerDesc" name="markerDesc" placeholder="Description"></input>
         <input type="text" id="markerImgUrl" name="markerImgUrl" placeholder="Image URL"></input>
         <button><strong>Create</strong></button>
+      </form>
+    </div>
+  `;
+  return $markerForm;
+};
+
+const renderEditForm = (data) => {
+  const $markerForm = `
+    <div class="marker-form-container">
+      <p class="add-marker-header">Edit a marker</p>
+      <form class="edit-marker-form">
+        <input type="text" id="markerName" name="markerName" placeholder="Title" value="${data.title}"></input>
+        <input type="textarea" id="markerDesc" name="markerDesc" placeholder="Description" value="${data.description}"></input>
+        <input type="text" id="markerImgUrl" name="markerImgUrl" placeholder="Image URL" value="${data.image_url}"></input>
+        <button><strong>Edit</strong></button>
       </form>
     </div>
   `;
