@@ -12,9 +12,9 @@ const router = express.Router();
 module.exports = (db) => {
   // get map lists
   router.get("/", (req, res) => {
-    const query = `SELECT * FROM maps WHERE creator_id = $1`;
+    const query = `SELECT users.first_name, maps.* FROM maps LEFT JOIN users ON maps.creator_id = users.id WHERE 1=1 ORDER BY maps.created_at`;
 
-    db.query(query, [req.session.userId])
+    db.query(query)
       .then((data) => {
         const maps = data.rows;
         res.send({ message: "map lists", data: maps });
@@ -28,14 +28,25 @@ module.exports = (db) => {
 
     if (!mapName) return res.status(400).send({ message: "need mapName" });
 
-    const query = `
-    INSERT INTO maps (map_name, creator_id) VALUES ($1, $2) RETURNING *
-    `;
+    const userQuery = `SELECT first_name FROM users WHERE id = $1`;
+    db.query(userQuery, [req.session.userId])
+      .then((userResult) => {
+        const user = userResult.rows[0];
+        console.log(user);
 
-    db.query(query, [mapName, req.session.userId])
-      .then((data) => {
-        const map = data.rows[0];
-        res.send({ message: "map created", data: map });
+        const query = `
+           INSERT INTO maps (map_name, creator_id) VALUES ($1, $2) RETURNING *
+        `;
+
+        db.query(query, [mapName, req.session.userId])
+          .then((data) => {
+            const map = data.rows[0];
+            map["creator_name"] = user.first_name;
+
+            console.log(map);
+            res.send({ message: "map created", data: map });
+          })
+          .catch((err) => res.status(500).send({ error: err.message }));
       })
       .catch((err) => res.status(500).send({ error: err.message }));
   });
@@ -47,21 +58,40 @@ module.exports = (db) => {
     if (!mapId) return res.status(400).send({ message: "invalid /:id" });
 
     const { lat, long, markerName, markerDesc, markerImgUrl } = req.body;
-    console.log(req.body);
+
+    const checkQuery = `
+      SELECT id FROM maps WHERE creator_id = $1 AND id = $2
+    `;
+    db.query(checkQuery, [req.session.userId, mapId]).then((result) => {
+      console.log(result.rows);
+      if (!result.rows.length) {
+        return res.status(400).send({ message: "not your map" });
+      } else {
+        const query = `
+        INSERT INTO points (lat, long, title, description, image_url, map_id, creator_id)
+                  VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *
+      `;
+
+        db.query(query, [
+          lat,
+          long,
+          markerName,
+          markerDesc,
+          markerImgUrl,
+          mapId,
+          req.session.userId,
+        ])
+          .then((data) => {
+            const point = data.rows[0];
+            res.send({ message: "point created", data: point });
+          })
+          .catch((err) => res.status(500).send({ error: err.message }));
+      }
+    });
 
     // if (!lat || !long || !title || !description || !imageUrl) {
     //   return res.status(400).send({ message: "invalid data" });
     // }
-    const query = `
-    INSERT INTO points (lat, long, title, description, image_url, map_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *
-    `;
-
-    db.query(query, [lat, long, markerName, markerDesc, markerImgUrl, mapId])
-      .then((data) => {
-        const point = data.rows[0];
-        res.send({ message: "point created", data: point });
-      })
-      .catch((err) => res.status(500).send({ error: err.message }));
   });
 
   // get a map with points
@@ -76,10 +106,10 @@ module.exports = (db) => {
       FROM maps
       JOIN points ON points.map_id = maps.id
       WHERE maps.id = $1
-      AND creator_id = $2;
+
     `;
 
-    db.query(query, [id, req.session.userId])
+    db.query(query, [id])
       .then((data) => {
         const map = data.rows;
         res.send({ message: "a map", data: map });
@@ -94,11 +124,11 @@ module.exports = (db) => {
       DELETE FROM points
       WHERE lat = $1
       AND long = $2
+      AND creator_id = $3
       RETURNING *
     `;
-    db.query(query, [lat, long])
+    db.query(query, [lat, long, req.session.userId])
       .then((result) => {
-        console.log(result.rows);
         res.send({ message: "success delete", data: result.rows[0] });
       })
       .catch((err) => res.status(500).send({ error: err.message }));

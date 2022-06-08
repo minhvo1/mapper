@@ -38,11 +38,12 @@
 </head>
 
 <body>
+
   <div class="modal-container"></div>
   <!-- Side nav panel -->
   <div class="side-nav">
     <!-- Logo -->
-    <section class="logo">
+    <section class="logo" data-user="<%= userInfo.id %>">
       <p><strong>WikiMap</strong></p>
     </section>
     <section class="user-welcome">
@@ -71,6 +72,7 @@
   </div>
   <!-- Map body -->
   <div class='custom-popup' id='map'></div>
+
   <!-- Map name input form -->
 
 </body>

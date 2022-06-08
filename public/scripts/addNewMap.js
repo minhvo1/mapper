@@ -4,7 +4,7 @@ const createMapNameElement = (mapInfo) => {
     <li>
       <div>
         <p class="map-name" data-input="${mapInfo.id}">
-          ${mapInfo.map_name} <span>by ${mapInfo.first_name}</span>
+          ${mapInfo.map_name} <span> by ${mapInfo.creator_name}</span>
         </p>
 
       </div>

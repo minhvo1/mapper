@@ -65,7 +65,7 @@ app.get("/", (req, res) => {
 
   if (!userId) return res.render("login");
 
-  db.query(`SELECT first_name, last_name, email FROM users WHERE id = $1`, [
+  db.query(`SELECT id, first_name, last_name, email FROM users WHERE id = $1`, [
     userId,
   ])
     .then((result) => {

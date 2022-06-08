@@ -1,5 +1,7 @@
 // Initialize Leaflet map
 $(document).ready(function () {
+  window.currentUser = $(".logo").attr("data-user");
+
   window.map = initializeMap();
   let map = window.map;
 
@@ -11,6 +13,7 @@ $(document).ready(function () {
     // console.log(mapId);
     window.currentMapId = mapId;
     // remove markers before render new markers
+
     if (window.markers) {
       for (let i = 0; i < window.markers.length; i++) {
         map.removeLayer(window.markers[i]);
@@ -98,6 +101,7 @@ $(document).ready(function () {
 
 const markerPopup = (markerInfo) => {
   const $popUpInfo = `
+    <div class="marker-user" data-user="${window.currentUser}"></div>
     <p>${markerInfo.title}</p>
     <p>${markerInfo.description}</p>
     <img src="${markerInfo.image_url}" style="width: 200px"></img>
@@ -105,9 +109,9 @@ const markerPopup = (markerInfo) => {
     <button class="edit-marker-btn">edit</button>
   `;
 
-  /* <img src="${markerInfo.image_url}"></img> */
-
   return $popUpInfo;
+
+  /* <img src="${markerInfo.image_url}"></img> */
 };
 
 const createMarkers = () => {
@@ -139,10 +143,11 @@ const createMarkers = () => {
           console.log(result);
           window.markers.push(window.marker);
           window.marker.closePopup();
-          window.marker.unbindPopup();
           window.marker.bindPopup(markerPopup(result.data)).openPopup();
         },
-        error: function () {
+        error: function (err) {
+          console.log(err);
+          alert(err.responseJSON.message);
           window.map.removeLayer(window.marker);
         },
       });
@@ -184,12 +189,19 @@ const initializeMap = () => {
   // Initialize the map
   let map = L.map("map");
 
-  map.locate({ setView: true, maxZoom: 13, drag: true });
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 19,
     attribution:
       '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   }).addTo(map);
+
+  L.control
+    .zoom({
+      position: "topright",
+    })
+    .addTo(map);
+
+  map.locate({ setView: true, maxZoom: 13, drag: true });
 
   return map;
 };

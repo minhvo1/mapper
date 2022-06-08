@@ -6,8 +6,8 @@ $(document).ready(function () {
       renderUserMaps(result.data);
     },
     error: (err) => {
-      console.log('error getting map lists', err.message)
-    }
+      console.log("error getting map lists", err.message);
+    },
   });
 
   $(document).ajaxComplete(function () {
@@ -31,7 +31,7 @@ const renderUserMaps = function (data) {
   for (let element of data) {
     let $mapElement = `
     <li>
-      <div><p class="map-name" data-input="${element.id}">${element.map_name}</p></div>
+      <div><p class="map-name" data-input="${element.id}">${element.map_name}<span> by ${element.first_name}</span></p></div>
     </li>
    `;
     $(".map-list").append($mapElement);
