@@ -1,38 +1,62 @@
+.leaflet-container {
+  font-family: 'Joan';
+  font-size: 0.5rem;
+}
 
-.custom-popup .leaflet-popup-content-wrapper .marker-form input{
-  background:transparent;
-  margin-bottom: 1em;
-  border: none;
-  border-bottom: 1px solid white;
-  color: white;
-  }
-
-
-.custom-popup .leaflet-popup-content-wrapper .marker-form button{
-  background:transparent;
-  margin-bottom: 1em;
-  border: 2px solid white;
-  border-radius: 0.2em;
-  padding: 0.5em;
-  color: white;
-  cursor: pointer;
-  }
+.marker-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
 .custom-popup .leaflet-popup-content-wrapper{
-  background:#2c3e50;
-  color:#fff;
+  background:#f9f9fb;
   font-size:16px;
   line-height:24px;
   }
 .custom-popup .leaflet-popup-content-wrapper a {
   color:rgba(255,255,255,0.5);
   }
-.custom-popup .leaflet-popup-tip-container {
-  width:30px;
-  height:15px;
+
+.custom-popup .leaflet-popup-content-wrapper .add-marker-header {
+  font-size: 1.3rem;
+  font-weight:600;
+  margin-bottom: 0.7rem;
+}
+
+.custom-popup .leaflet-popup-content-wrapper .marker-form input{
+  background:transparent;
+  height: 2.1rem;
+  margin-bottom: 1em;
+  border: none;
+  border-bottom: 0.1rem solid #464b52;
+  color: #464b52;
+  text-size-adjust: 80%;
   }
-.custom-popup .leaflet-popup-tip {
-  border-left:15px solid transparent;
-  border-right:15px solid transparent;
-  border-top:15px solid #2c3e50;
+
+.custom-popup .leaflet-popup-content-wrapper .marker-form input::placeholder {
+  font-size: 0.9rem;
+}
+
+.custom-popup .leaflet-popup-content-wrapper .marker-form button{
+  background:rgb(218, 223, 232);
+  width: 4rem;
+  margin-bottom: 0.2rem;
+  margin-top: 0.2rem;
+  border: none;
+  box-shadow: 0.1rem 0.1rem #ced3db;
+  color: rgb(87, 84, 84);
+  border-radius: 0.2em;
+  padding: 0.3rem;
+  cursor: pointer;
   }
+
+
+.leaflet-popup-tip-container {
+  background-color: transparent;
+}
+
+.leaflet-popup-tip {
+  background: #f9f9fb !important;
+}

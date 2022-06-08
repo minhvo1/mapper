@@ -47,7 +47,9 @@
     </section>
     <section class="user-welcome">
       <p><strong>Hi, <%= userInfo.first_name %></strong></p>
-      <button class="logout-button" type="submit">Sign out</button>
+      <form action="/api/users/logout" method="POST">
+        <button class="logout-button" type="submit">Sign out</button>
+      </form>
     </section>
 
     <!-- User maps menu -->
