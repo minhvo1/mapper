@@ -36,7 +36,7 @@ const renderUserMaps = function (data) {
       <div>
         <p class="map-name" data-input="${element.id}">${element.map_name}</p>
         <p class="map-creator">${element.first_name}</p>
-        <button class="favorite-button" type="submit">Fav</button>
+        <button class="favorite-button" type="submit"><i class="fa-regular fa-heart"></i></button>
       </div>
     </li>
    `;

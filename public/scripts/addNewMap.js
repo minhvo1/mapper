@@ -5,7 +5,7 @@ const createMapNameElement = (mapInfo) => {
       <div>
         <p class="map-name" data-input="${mapInfo.id}">${mapInfo.map_name}</p>
         <p class="map-creator">${mapInfo.creator_name}</p>
-        <button class="favorite-button" type="submit">Fav</button>
+        <button class="favorite-button" type="submit"><i class="fa-regular fa-heart"></i></button>
       </div>
     </li>
    `;
