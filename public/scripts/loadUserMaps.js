@@ -18,9 +18,11 @@ $(document).ready(function () {
       .on("click", function () {
         $(".map-list").children().children().css("background-color", "#f9f9fb");
         $(".map-list").children().children().css("box-shadow", "");
+        $(".map-list").children().children().children('button').css("display", "none");
         $(".map-list").children().css("font-weight", "400");
         $(this).css("background-color", "#dadfe8");
         $(this).css("box-shadow", "0.1rem 0.1rem #ced3db");
+        $(this).children('button').css("display", "block");
         $(this).parent().css("font-weight", "600");
       });
   });
@@ -31,7 +33,11 @@ const renderUserMaps = function (data) {
   for (let element of data) {
     let $mapElement = `
     <li>
-      <div><p class="map-name" data-input="${element.id}">${element.map_name}<span> by ${element.first_name}</span></p></div>
+      <div>
+        <p class="map-name" data-input="${element.id}">${element.map_name}</p>
+        <p class="map-creator">${element.first_name}</p>
+        <button class="favorite-button" type="submit">Fav</button>
+      </div>
     </li>
    `;
     $(".map-list").append($mapElement);

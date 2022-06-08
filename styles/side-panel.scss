@@ -78,7 +78,7 @@
   padding-left: 1.2rem;
   margin-top: 1.8rem;
   margin-bottom: 0;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 600;
 }
 
@@ -96,6 +96,7 @@
   overflow-y: scroll;
   overflow-x: hidden;
   margin-top: 0.5rem;
+  font-size: 0.9rem;
 
 }
 
@@ -127,10 +128,32 @@ ul li div {
   display: flex;
   align-items: center;
   cursor: pointer;
+  display: flex;
+  flex-direction: row;
+
+}
+
+.map-name {
+  width: 9rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.map-creator {
+  width: 3rem;
+  margin-left: 1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 ul li div p {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+ul li div button {
+  display: none;
 }
