@@ -29,11 +29,16 @@ $(document).ready(function () {
         $(this).children("button").css("display", "block");
         $(this).parent().css("font-weight", "600");
       });
+    $('.favorite-button').children('i').on('click', function() {
+      $(this).removeClass('fa-regular').addClass('fa-solid');
+      $(this).css('color', '#db3b53');
+    })
   });
 });
 
 // Render user existing maps
 const renderUserMaps = function (data) {
+  console.log(data)
   for (let element of data) {
     let $mapElement = `
     <li>
