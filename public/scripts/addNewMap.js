@@ -3,9 +3,11 @@ const createMapNameElement = (mapInfo) => {
   let $mapElement = `
     <li>
       <div>
-        <p class="map-name" data-input="${mapInfo.id}">
-          ${safeHtml(mapInfo.map_name)} <span> by ${mapInfo.creator_name}</span>
-        </p>
+        <p class="map-name" data-input="${mapInfo.id}">${safeHtml(
+    mapInfo.map_name
+  )}</p>
+        <p class="map-creator">${mapInfo.creator_name}</p>
+        <button class="favorite-button" type="submit"><i class="fa-regular fa-heart"></i></button>
       </div>
     </li>
    `;
@@ -32,9 +34,33 @@ $(() => {
       data: mapName,
       success: function (result) {
         window.currentMapId = result.data.id;
-
         $(".map-list").append(createMapNameElement(result.data));
         $(".map-form-input").val("");
+        $(".map-list")
+          .find("li")
+          .find("div")
+          .css("background-color", "#f9f9fb");
+        $(".map-list").find("li").find("div").css("box-shadow", "");
+        $(".map-list")
+          .find("li")
+          .find("div")
+          .find("button")
+          .css("display", "none");
+        $(".map-list").find("li").css("font-weight", "400");
+        $(`p[data-input='${window.currentMapId}']`)
+          .parent()
+          .css("background-color", "#dadfe8");
+        $(`p[data-input='${window.currentMapId}']`)
+          .parent()
+          .css("box-shadow", "0.1rem 0.1rem #ced3db");
+        $(`p[data-input='${window.currentMapId}']`)
+          .parent()
+          .find("button")
+          .css("display", "block");
+        $(`p[data-input='${window.currentMapId}']`)
+          .parent()
+          .parent()
+          .css("font-weight", "600");
       },
     });
   });

@@ -32,20 +32,20 @@
   margin: 0;
   font-weight: 600;
   font-size: 3rem;
-}
-
-#user-profile-label {
-  margin: 0;
-  font-size: 2rem;
-  margin-right: 10rem;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 93%;
 }
 
 .profile-name a:visited {
   color: #464b52;
+
 }
 
 .fa-arrow-left {
   font-size: 1.8rem;
+  color: #464b52;
 }
 /* Email */
 

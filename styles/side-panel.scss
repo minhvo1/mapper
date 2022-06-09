@@ -74,11 +74,22 @@
   padding: 0;
 }
 
-#user-maps-header {
+.maps-main-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
   padding-left: 1.2rem;
-  margin-top: 1.8rem;
-  margin-bottom: 0;
-  font-size: 1.5rem;
+  margin-bottom: -1rem;
+}
+
+#user-maps-header-creator {
+  padding-right: 5.5rem;
+  font-weight: 600;
+}
+
+#user-maps-header {
+  font-size: 1.3rem;
   font-weight: 600;
 }
 
@@ -96,6 +107,7 @@
   overflow-y: scroll;
   overflow-x: hidden;
   margin-top: 0.5rem;
+  font-size: 0.9rem;
 
 }
 
@@ -127,10 +139,38 @@ ul li div {
   display: flex;
   align-items: center;
   cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+}
+
+.map-name {
+  width: 9rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.map-creator {
+  width: 3rem;
+  margin-left: 1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 ul li div p {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+ul li div button {
+  display: none;
+  border: none;
+  background-color: transparent;
+  font-size: 1rem;
+  padding-top: 0.1rem;
+  cursor: pointer;
 }
