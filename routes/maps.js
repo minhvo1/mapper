@@ -96,7 +96,7 @@ module.exports = (db) => {
     `;
     db.query(checkQuery, [req.session.userId, mapId]).then((result) => {
       if (!result.rows.length) {
-        return res.status(400).send({ message: "not your map" });
+        return res.status(400).send({ message: "Please select your map." });
       } else {
         const query = `
         INSERT INTO points (lat, long, title, description, image_url, map_id, creator_id)
@@ -190,7 +190,7 @@ module.exports = (db) => {
     db.query(checkQuery, [id, req.session.userId])
       .then((result) => {
         if (!result.rows.length) {
-          return res.status(400).send({ message: "not your marker" });
+          return res.status(400).send({ message: "Please select your marker." });
         }
         const query = `
           UPDATE points
