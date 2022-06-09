@@ -1,6 +1,5 @@
 $(() => {
   $("body").on("click", ".favorite-button", function (e) {
-
     console.log($(this));
     const mapId = $(this).attr("data-input");
 
@@ -9,7 +8,7 @@ $(() => {
       url: "/api/favmaps",
       data: { mapId },
       success: (result) => {
-
+        // loadAllMapList();
       },
     });
   });

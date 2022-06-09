@@ -1,4 +1,9 @@
 $(document).ready(function () {
+  loadAllMapList();
+  highlightListAfterLoadMaps;
+});
+
+const loadAllMapList = () => {
   $.ajax({
     type: "GET",
     url: "/api/maps",
@@ -18,17 +23,17 @@ $(document).ready(function () {
               }
             }
           }
-          console.log(filteredMap); //THIS
+          renderUserMaps(result.data);
         },
       });
-
-      renderUserMaps(result.data);
     },
     error: (err) => {
       console.log("error getting map lists", err.message);
     },
   });
+};
 
+const highlightListAfterLoadMaps = () => {
   $(document).ajaxComplete(function () {
     // Find div element in unordered list
     $(".map-list")
@@ -55,7 +60,7 @@ $(document).ready(function () {
         $(this).css("color", "#db3b53");
       });
   });
-});
+};
 
 // Render user existing maps
 const renderUserMaps = function (data) {
