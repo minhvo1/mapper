@@ -38,15 +38,20 @@ const highlightListAfterLoadMaps = () => {
         $(this).parent().css("font-weight", "600");
       });
 
-    $(".favorite-button")
-      .children("i")
-      .on("click", function () {
-        $(this).removeClass("fa-regular").addClass("fa-solid");
-        $(this).css("color", "#db3b53");
-      });
+    // if (!window.flag) {
+    //   $(".favorite-button").on("click", function () {
+    //     $(this).children().removeClass("fa-regular").addClass("fa-solid");
+    //         $(this).css("color", "#db3b53");
+    //   });
+    //   window.flag = true;
+    // } else {
+    //   $(".favorite-button").on("click", function () {
+    //     $(this).children().removeClass("fa-solid");
+    //   });
+    //   window.flag = false;
+    // }
   });
 };
-
 // Render user existing maps
 const renderUserMaps = function (data) {
   for (let element of data) {

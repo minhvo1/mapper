@@ -26,6 +26,16 @@ $(document).ready(function () {
       type: "GET",
       url: `/api/maps/point/${pointId}`,
       success: (result) => {
+        // console.log(result.data);
+        // window.map.eachLayer((l) => {
+        //   console.log(l);
+        //   if (
+        //     l._latlng.lat == result.data.lat &&
+        //     l._latlng.lng == result.data.long
+        //   ) {
+        //     l.openPopup();
+        //   }
+        // });
         window.map.flyTo([result.data.lat, result.data.long], 17);
       },
     });
