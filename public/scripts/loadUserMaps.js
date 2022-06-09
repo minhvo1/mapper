@@ -8,7 +8,6 @@ const loadAllMapList = () => {
     type: "GET",
     url: "/api/maps",
     success: (result) => {
-      console.log(result.data);
       renderUserMaps(result.data);
     },
     error: (err) => {

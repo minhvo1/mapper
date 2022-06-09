@@ -21,13 +21,21 @@ $(document).ready(function () {
     e.preventDefault();
 
     const pointId = $(this).next().attr("data-point");
-    console.log(pointId);
 
     $.ajax({
       type: "GET",
       url: `/api/maps/point/${pointId}`,
       success: (result) => {
-        console.log(result.data);
+        // console.log(result.data);
+        // window.map.eachLayer((l) => {
+        //   console.log(l);
+        //   if (
+        //     l._latlng.lat == result.data.lat &&
+        //     l._latlng.lng == result.data.long
+        //   ) {
+        //     l.openPopup();
+        //   }
+        // });
         window.map.flyTo([result.data.lat, result.data.long], 17);
       },
     });
@@ -87,7 +95,6 @@ const renderMarkerList = () => {
           <div class="marker-list-input" data-point="${marker.point_id}"></div>
         </div>
       `;
-        console.log(marker.point_id);
         $(".marker-list-pop").append($div);
       }
     },
