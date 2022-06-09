@@ -31,7 +31,9 @@ const renderUserMaps = function (data) {
   for (let element of data) {
     let $mapElement = `
     <li>
-      <div><p class="map-name" data-input="${element.id}">${element.map_name}<span> by ${element.first_name}</span></p></div>
+      <div><p class="map-name" data-input="${element.id}">${safeHtml(
+      element.map_name
+    )}<span> by ${element.first_name}</span></p></div>
     </li>
    `;
     $(".map-list").append($mapElement);

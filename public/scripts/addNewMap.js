@@ -4,7 +4,7 @@ const createMapNameElement = (mapInfo) => {
     <li>
       <div>
         <p class="map-name" data-input="${mapInfo.id}">
-          ${mapInfo.map_name} <span> by ${mapInfo.creator_name}</span>
+          ${safeHtml(mapInfo.map_name)} <span> by ${mapInfo.creator_name}</span>
         </p>
       </div>
     </li>
@@ -39,3 +39,10 @@ $(() => {
     });
   });
 });
+
+/** XSS prevent */
+const safeHtml = function (str) {
+  let div = document.createElement("div"); // create a new div
+  div.appendChild(document.createTextNode(str)); // append a TextNode to div
+  return div.innerHTML;
+};
