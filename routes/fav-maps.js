@@ -25,18 +25,27 @@ module.exports = (db) => {
 
   //add favMap
   router.post("/", (req, res) => {
-    const { mapId, userId } = req.body;
-    db.query(
-      `INSERT INTO favourite_maps (map_id, user_id) VALUES ($1, $2) RETURNING *;`,
-      [mapId, userId]
-    )
-      .then((data) => {
-        const favMap = data.rows[0];
-        res.send({ data: favMap });
-      })
-      .catch((err) => {
-        res.status(500).send({ error: err.message });
-      });
+    const { mapId } = req.body;
+
+    const checkQuery = `
+      SELECT * FROM favourite_maps WHERE map_id = $1 AND user_id = $2
+    `;
+    db.query(checkQuery, [mapId, req.session.userId]).then((result) => {
+      if (result.rows[0]) {
+        return res.status(400).send({ message: "already in fav list" });
+      }
+      db.query(
+        `INSERT INTO favourite_maps (map_id, user_id) VALUES ($1, $2) RETURNING *;`,
+        [mapId, req.session.userId]
+      )
+        .then((data) => {
+          const favMap = data.rows[0];
+          res.send({ data: favMap });
+        })
+        .catch((err) => {
+          res.status(500).send({ error: err.message });
+        });
+    });
   });
 
   //delete favMap

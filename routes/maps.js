@@ -89,10 +89,6 @@ module.exports = (db) => {
           .catch((err) => res.status(500).send({ error: err.message }));
       }
     });
-
-    // if (!lat || !long || !title || !description || !imageUrl) {
-    //   return res.status(400).send({ message: "invalid data" });
-    // }
   });
 
   // get a map with points

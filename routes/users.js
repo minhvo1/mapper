@@ -95,19 +95,35 @@ module.exports = (db) => {
 
   router.get("/me", authUser, (req, res) => {
     db.query(
-      `SELECT users.first_name, users.last_name, users.email, ARRAY_AGG(maps.map_name) as map_lists
-              FROM users JOIN maps ON maps.creator_id = users.id
-              WHERE users.id = $1
-              GROUP BY users.first_name, users.last_name, users.email
-              `,
+      `SELECT maps.id, maps.map_name, users.first_name
+        FROM favourite_maps
+        JOIN maps ON maps.id = map_id
+        JOIN users ON users.id = creator_id
+        WHERE user_id = $1;`,
       [req.session.userId]
     )
       .then((data) => {
-        const user = data.rows[0];
-        res.render("profile", { user });
+        const favMaps = data.rows;
+        console.log(favMaps);
+
+        db.query(
+          `SELECT users.first_name, users.last_name, users.email, ARRAY_AGG(maps.map_name) as map_lists
+                  FROM users JOIN maps ON maps.creator_id = users.id
+                  WHERE users.id = $1
+                  GROUP BY users.first_name, users.last_name, users.email
+                  `,
+          [req.session.userId]
+        )
+          .then((data) => {
+            const user = data.rows[0];
+            res.render("profile", { user, favMaps });
+          })
+          .catch((err) => {
+            res.status(500).json({ error: err.message });
+          });
       })
       .catch((err) => {
-        res.status(500).json({ error: err.message });
+        res.status(500).send({ error: err.message });
       });
   });
   router.post("/", (req, res) => {

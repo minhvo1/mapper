@@ -43,7 +43,6 @@ const renderAllMarkers = () => {
     success: (result) => {
       const points = result.data;
       for (const point of points) {
-        console.log(point);
         window.marker = new L.Marker([point.lat, point.long]).bindPopup(
           markerPopup(point),
           { maxWidth: "auto" }
@@ -89,7 +88,6 @@ const createMarkers = () => {
           marker.bindPopup(markerPopup(result.data)).openPopup();
         },
         error: function (err) {
-          console.log(err);
           alert(err.responseJSON.message);
           window.map.removeLayer(marker);
         },

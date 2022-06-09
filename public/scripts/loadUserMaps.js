@@ -42,7 +42,9 @@ const renderUserMaps = function (data) {
       element.map_name
     )}</p>
         <p class="map-creator">${element.first_name}</p>
-        <button class="favorite-button" type="submit"><i class="fa-regular fa-heart"></i></button>
+        <button class="favorite-button" data-input="${
+          element.id
+        }" type="submit"><i class="fa-regular fa-heart favorite"></i></button>
       </div>
     </li>
    `;

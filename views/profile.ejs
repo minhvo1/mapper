@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,7 +19,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Joan&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.Default.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 
 </head>
@@ -28,17 +31,22 @@
     <div class="profile-tab">
       <!-- Profile name -->
       <div class="profile-name tab-info">
-        <p id="profile-first-last-name"><%= user.first_name %> <%= user.last_name %></p>
+        <p id="profile-first-last-name">
+          <%= user.first_name %>
+            <%= user.last_name %>
+        </p>
 
         <a href="/"><i class="fa-solid fa-arrow-left"></i></a>
       </div>
       <!-- Profile email -->
       <div class="profile-email tab-info">
-        <div class="profile-email-left profile-info" >
+        <div class="profile-email-left profile-info">
           <p class="section-headers">Email</p>
         </div>
         <div class="profile-email-right">
-          <p><%= user.email %></p>
+          <p>
+            <%= user.email %>
+          </p>
         </div>
       </div>
       <!-- Profile map created -->
@@ -50,8 +58,10 @@
         <div class="profile-maps-created-right">
           <ul class="maps-created-list" style="list-style: square">
             <% for (let map of user.map_lists) { %>
-            <li><%= map %></li>
-            <% } %>
+              <li>
+                <%= map %>
+              </li>
+              <% } %>
           </ul>
         </div>
       </div>
@@ -63,7 +73,11 @@
 
         <div class="profile-maps-favorited-right">
           <ul class="maps-favorited-list" style="list-style: square">
-            <li>Map 1</li>
+            <% for (let map of favMaps) { %>
+              <li>
+                <%= map.map_name %> created by <%= map.first_name %>
+              </li>
+              <% } %>
 
           </ul>
         </div>
@@ -72,4 +86,5 @@
     </div>
   </div>
 </body>
+
 </html>
