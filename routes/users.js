@@ -95,7 +95,7 @@ module.exports = (db) => {
 
   router.get("/me", authUser, (req, res) => {
     db.query(
-      `SELECT maps.id, maps.map_name, users.first_name
+      `SELECT maps.id, maps.map_name, users.first_name, users.last_name
         FROM favourite_maps
         JOIN maps ON maps.id = map_id
         JOIN users ON users.id = creator_id
