@@ -45,8 +45,8 @@ $(document).ready(function () {
 const markerPopup = (markerInfo) => {
   const $popUpInfo = `
     <div class="marker-info" data-point="${markerInfo.point_id}">
-      <p class="marker-info-title">${markerInfo.title}</p>
-      <p class="marker-info-description">${markerInfo.description}</p>
+      <p class="marker-info-title" align="center">${markerInfo.title}</p>
+      <p class="marker-info-description" align="center">${markerInfo.description}</p>
       <img class="marker-info-img" src="${markerInfo.image_url}" style="width: 200px"></img>
       <div class="marker-info-buttons">
         <button class="delete-marker-btn">Delete</button>
