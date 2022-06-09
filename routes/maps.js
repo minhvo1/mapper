@@ -19,8 +19,6 @@ module.exports = (db) => {
       .then((data) => {
         const maps = data.rows;
 
-        // console.log(maps);
-
         db.query(
           `SELECT favourite_maps.id AS f_m_id, maps.id AS map_id,
             maps.map_name, users.first_name
@@ -32,7 +30,6 @@ module.exports = (db) => {
         )
           .then((data) => {
             const favMaps = data.rows;
-            // console.log(favMaps);
 
             for (const map of maps) {
               map.favorited = false;
@@ -45,8 +42,6 @@ module.exports = (db) => {
                 }
               }
             }
-            console.log(maps);
-
             res.send({ data: maps });
           })
           .catch((err) => {
@@ -144,7 +139,7 @@ module.exports = (db) => {
     db.query(query, [id])
       .then((data) => {
         const map = data.rows;
-        console.log(map);
+
         res.send({ message: "a map", data: map });
       })
       .catch((err) => res.status(500).send({ error: err.message }));
@@ -177,7 +172,6 @@ module.exports = (db) => {
     `;
     db.query(query, [id])
       .then((result) => {
-        // console.log(result.rows);
         res.send({ message: "edit", data: result.rows[0] });
       })
       .catch((err) => res.status(500).send({ error: err.message }));

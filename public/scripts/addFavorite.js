@@ -12,23 +12,16 @@ $(() => {
         url: "/api/favmaps",
         data: { mapId },
         success: (result) => {
-          console.log($(this).children());
           $(this).children().removeClass("fa-regular").addClass("fa-solid");
           $(this).children().css("color", "#db3b53");
         },
       });
-
-
     } else if (favCheck === "true") {
       $(this).children().attr("data-fav", "false");
       $.ajax({
         type: "DELETE",
         url: `/api/favmaps/${mapId}`,
         success: (result) => {
-          // $(".map-list").empty();
-          // loadAllMapList();
-          console.log($(this).children());
-
           $(this).children().removeClass("fa-solid").addClass("fa-regular");
           $(this).children().css("color", "black");
         },
@@ -36,7 +29,6 @@ $(() => {
           console.log(err);
         },
       });
-
     }
   });
 });
