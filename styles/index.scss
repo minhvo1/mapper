@@ -9,3 +9,12 @@ body {
   font-family: "Joan";
   font-size: 0.5rem;
 }
+
+.marker-list-pop {
+  position: fixed;
+  top: 1em;
+  right: 4em;
+  display: flex;
+  flex-direction: row-reverse;
+  z-index: 99;
+}

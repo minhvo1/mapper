@@ -10,11 +10,28 @@ $(document).ready(function () {
     window.currentMapId = mapId;
 
     renderAllMarkers();
+    renderMarkerList();
     //delete & edit markers
     editDeleteHandler();
   });
 
   createMarkers();
+
+  $(".marker-list-pop").on("click", ".marker-list-btn", function (e) {
+    e.preventDefault();
+
+    const pointId = $(this).next().attr("data-point");
+    console.log(pointId);
+
+    $.ajax({
+      type: "GET",
+      url: `/api/maps/point/${pointId}`,
+      success: (result) => {
+        console.log(result.data);
+        window.map.flyTo([result.data.lat, result.data.long], 17);
+      },
+    });
+  });
 });
 
 const markerPopup = (markerInfo) => {
@@ -42,12 +59,36 @@ const renderAllMarkers = () => {
     url: `/api/maps/${window.currentMapId}`,
     success: (result) => {
       const points = result.data;
+
       for (const point of points) {
         window.marker = new L.Marker([point.lat, point.long]).bindPopup(
           markerPopup(point),
           { maxWidth: "auto" }
         );
         window.map.addLayer(window.marker);
+      }
+    },
+  });
+};
+
+const renderMarkerList = () => {
+  $(".marker-list-pop").empty();
+
+  $.ajax({
+    type: "GET",
+    url: `/api/maps/${window.currentMapId}`,
+    success: (result) => {
+      const points = result.data;
+      // console.log(points);
+      for (let marker of points) {
+        const $div = `
+        <div>
+          <button class="marker-list-btn"> ${marker.title} </button>
+          <div class="marker-list-input" data-point="${marker.point_id}"></div>
+        </div>
+      `;
+        console.log(marker.point_id);
+        $(".marker-list-pop").append($div);
       }
     },
   });
@@ -63,6 +104,9 @@ const createMarkers = () => {
 
     let marker = new L.marker([event.latlng.lat, event.latlng.lng]);
     window.marker = marker;
+
+    console.log(marker);
+    console.log(event.latlng);
 
     window.map.addLayer(marker);
     marker.bindPopup(renderMarkerInfoForm()).openPopup();
@@ -86,6 +130,7 @@ const createMarkers = () => {
         success: function (result) {
           marker.closePopup();
           marker.bindPopup(markerPopup(result.data)).openPopup();
+          renderMarkerList();
         },
         error: function (err) {
           alert(err.responseJSON.message);

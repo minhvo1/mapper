@@ -1,11 +1,8 @@
 $(() => {
   $("body").on("click", ".favorite-button", function (e) {
-    console.log("yes");
     const mapId = $(this).attr("data-input");
-    console.log(mapId);
 
     const favCheck = $(this).children().attr("data-fav");
-    console.log(favCheck);
 
     if (favCheck === "false" || favCheck === undefined) {
       $(this).children().attr("data-fav", "true");
