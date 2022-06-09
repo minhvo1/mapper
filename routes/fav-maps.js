@@ -3,11 +3,12 @@ const router = express.Router();
 
 module.exports = (db) => {
   //get all favMap
-  router.get("/:id", (req, res) => {
+  router.get("/", (req, res) => {
     const userId = req.session.userId;
 
     db.query(
-      `SELECT maps.id, maps.map_name, users.first_name
+      `SELECT favourite_maps.id AS f_m_id, maps.id AS map_id,
+        maps.map_name, users.first_name
         FROM favourite_maps
         JOIN maps ON maps.id = map_id
         JOIN users ON users.id = creator_id
@@ -50,8 +51,12 @@ module.exports = (db) => {
 
   //delete favMap
   router.delete("/:id", (req, res) => {
-    const values = req.params.id;
-    db.query(`DELETE FROM favourite_maps WHERE id = $1 RETURNING *`, [values])
+    const { id } = req.params;
+
+    const query = `DELETE FROM favourite_maps WHERE id = $1 AND user_id = $2
+    RETURNING *`;
+
+    db.query(query, [id, req.session.userId])
       .then((data) => {
         res.send({ message: "deleted success", data: data.rows[0] });
       })

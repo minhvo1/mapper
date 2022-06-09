@@ -57,7 +57,7 @@
 
         <div class="profile-maps-created-right">
           <ul class="maps-created-list" style="list-style: square">
-            <% for (let map of user.map_lists) { %>
+            <% for (const map of user.map_lists) { %>
               <li>
                 <%= map %>
               </li>
@@ -73,7 +73,7 @@
 
         <div class="profile-maps-favorited-right">
           <ul class="maps-favorited-list" style="list-style: square">
-            <% for (let map of favMaps) { %>
+            <% for (const map of favMaps) { %>
               <li>
                 <%= map.map_name %> created by <%= map.first_name %>
               </li>

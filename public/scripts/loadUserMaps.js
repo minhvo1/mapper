@@ -1,8 +1,21 @@
 $(document).ready(function () {
+  let maps;
+  let favMaps;
+
   $.ajax({
     type: "GET",
     url: "/api/maps",
     success: (result) => {
+      maps = result.data;
+
+      $.ajax({
+        type: "GET",
+        url: "/api/favmaps",
+        success: (result) => {
+          favMaps = result.data;
+        },
+      });
+
       renderUserMaps(result.data);
     },
     error: (err) => {
@@ -11,6 +24,18 @@ $(document).ready(function () {
   });
 
   $(document).ajaxComplete(function () {
+    const filteredMap = [];
+    maps.forEach((map) => {
+      favMaps.forEach((fav) => {
+        if (fav.map_id === map.id) {
+          filteredMap.push(fav);
+        }
+      });
+    });
+
+    // Favorited map lists
+    console.log(filteredMap);
+
     // Find div element in unordered list
     $(".map-list")
       .children()
@@ -44,7 +69,7 @@ const renderUserMaps = function (data) {
         <p class="map-creator">${element.first_name}</p>
         <button class="favorite-button" data-input="${
           element.id
-        }" type="submit"><i class="fa-regular fa-heart favorite"></i></button>
+        }" type="submit"><i class="fa-regular fa-heart"></i></button>
       </div>
     </li>
    `;
