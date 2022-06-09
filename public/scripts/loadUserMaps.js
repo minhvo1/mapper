@@ -63,7 +63,7 @@ $(document).ready(function () {
 
 // Render user existing maps
 const renderUserMaps = function (data) {
-  console.log(data)
+
   for (let element of data) {
     let $mapElement = `
     <li>
