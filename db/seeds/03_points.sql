@@ -4,11 +4,7 @@ INSERT INTO points (lat, long, title, description, image_url, map_id, creator_id
 INSERT INTO points (lat, long, title, description, image_url, map_id, creator_id) VALUES ('51.04669117443757', '-114.08167370757612', 'Downtown McDonalds', 'Classic, long-running fast-food chain known for its burgers & fries.', 'https://s3-media0.fl.yelpcdn.com/bphoto/6UWtHt-1UuGYpR1JTWxZXw/o.jpg', 1, 1);
 
 INSERT INTO points (lat, long, title, description, image_url, map_id, creator_id) VALUES ('49.28833012', '-123.11214212', 'Vancouver Convention Centre', 'The Vancouver Convention Centre is a convention centre in Vancouver, British Columbia, Canada', 'https://i.imgur.com/XrIvvmI.jpeg', 2, 2);
-<<<<<<< HEAD
-INSERT INTO points (lat, long, title, description, image_url, map_id, creator_id) VALUES ('49.2872999264', '-123.113817085', 'fairmont waterfront ', 'A 4-minute walk from Waterfront Station, this stylish hotel with city', 'https://i.imgur.com/GGTXrrp.jpeg', 2, 2);
-=======
 INSERT INTO points (lat, long, title, description, image_url, map_id, creator_id) VALUES ('49.2872999264', '-123.113817085', 'Fairmont Waterfront ', 'A 4-minute walk from Waterfront Station, this stylish hotel with city', 'https://i.imgur.com/GGTXrrp.jpeg', 2, 2);
->>>>>>> 70c59988e2b4f9d12d008ea409b1256207f7fe0f
 INSERT INTO points (lat, long, title, description, image_url, map_id, creator_id) VALUES ('49.28718112', '-123.16143912', 'English Bay', 'English Bay is an open bay northwest of the Burrard Peninsula in British Columbia', 'https://i.imgur.com/X4krr8l.png', 2, 2);
 INSERT INTO points (lat, long, title, description, image_url, map_id, creator_id) VALUES ('49.299999', '-123.139999',  'Stanley Park', 'Stanley Park is a 405-hectare public park in British Columbia', 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Seawall_Vancouver.jpg/440px-Seawall_Vancouver.jpg', 2, 2);
 INSERT INTO points (lat, long, title, description, image_url, map_id, creator_id) VALUES ('49.34296', '-123.114947',  'Capilano Suspension Bridge', 'The Capilano Suspension Bridge is a simple suspension bridge crossing the Capilano River in the District of North Vancouver', 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Capilano_suspension_bridge_-a.jpg/2560px-Capilano_suspension_bridge_-a.jpg', 2, 2);
