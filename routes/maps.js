@@ -220,17 +220,12 @@ module.exports = (db) => {
     if (!id) return res.status(400).send({ message: "invalid /:id" });
 
     const query = `
-      DELETE FROM maps WHERE id = $1 RETURNING *;
+      DELETE FROM maps WHERE id = $1 AND creator_id = $2;
     `;
-    db.query(query, [id])
+    db.query(query, [id, req.session.userId])
       .then((data) => {
-        const deletedMap = data.rows[0];
-        if (!deletedMap)
-          return res.status(400).send({ message: "invalid map id" });
-
         res.send({
           message: `deleted`,
-          data: deletedMap,
         });
       })
       .catch((err) => res.status(500).send({ error: err.message }));
