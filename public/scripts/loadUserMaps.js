@@ -8,7 +8,6 @@ const loadAllMapList = () => {
     type: "GET",
     url: "/api/maps",
     success: (result) => {
-      console.log(result.data);
       renderUserMaps(result.data);
     },
     error: (err) => {
@@ -32,6 +31,7 @@ const highlightListAfterLoadMaps = () => {
           .children("button")
           .css("display", "none");
         $(".map-list").children().css("font-weight", "400");
+
         $(this).css("background-color", "#dadfe8");
         $(this).css("box-shadow", "0.1rem 0.1rem #ced3db");
         $(this).children("button").css("display", "block");

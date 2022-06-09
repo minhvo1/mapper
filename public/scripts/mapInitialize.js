@@ -21,13 +21,11 @@ $(document).ready(function () {
     e.preventDefault();
 
     const pointId = $(this).next().attr("data-point");
-    console.log(pointId);
 
     $.ajax({
       type: "GET",
       url: `/api/maps/point/${pointId}`,
       success: (result) => {
-        console.log(result.data);
         window.map.flyTo([result.data.lat, result.data.long], 17);
       },
     });
@@ -79,7 +77,7 @@ const renderMarkerList = () => {
     url: `/api/maps/${window.currentMapId}`,
     success: (result) => {
       const points = result.data;
-      // console.log(points);
+
       for (let marker of points) {
         const $div = `
         <div class="marker-list-item">
@@ -87,7 +85,6 @@ const renderMarkerList = () => {
           <div class="marker-list-input" data-point="${marker.point_id}"></div>
         </div>
       `;
-        console.log(marker.point_id);
         $(".marker-list-pop").append($div);
       }
     },
@@ -104,9 +101,6 @@ const createMarkers = () => {
 
     let marker = new L.marker([event.latlng.lat, event.latlng.lng]);
     window.marker = marker;
-
-    console.log(marker);
-    console.log(event.latlng);
 
     window.map.addLayer(marker);
     marker.bindPopup(renderMarkerInfoForm()).openPopup();

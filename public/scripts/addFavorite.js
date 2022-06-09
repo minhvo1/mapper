@@ -11,18 +11,18 @@ $(() => {
         url: "/api/favmaps",
         data: { mapId },
         success: (result) => {
-          console.log("map added from fav list");
           $(".map-list").empty();
           loadAllMapList();
         },
       });
+
+
     } else if (favCheck === "true") {
       $(this).children().attr("data-fav", "false");
       $.ajax({
         type: "DELETE",
         url: `/api/favmaps/${mapId}`,
         success: (result) => {
-          console.log("map removed from fav list");
           $(".map-list").empty();
           loadAllMapList();
         },
@@ -30,6 +30,7 @@ $(() => {
           console.log(err);
         },
       });
+
     }
   });
 });
