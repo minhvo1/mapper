@@ -7,7 +7,7 @@ module.exports = (db) => {
     const userId = req.session.userId;
 
     db.query(
-      `SELECT maps.id, maps.name, users.first_name
+      `SELECT maps.id, maps.map_name, users.first_name
         FROM favourite_maps
         JOIN maps ON maps.id = map_id
         JOIN users ON users.id = creator_id
