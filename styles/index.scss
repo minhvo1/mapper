@@ -12,9 +12,64 @@ body {
 
 .marker-list-pop {
   position: fixed;
-  top: 1em;
-  right: 4em;
+  top: 2.4em;
+  right: 3.7em;
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-content: center;
   z-index: 99;
+  background-color: #f9f9fb;
+  border-radius: 0.7rem;
+  box-shadow: 0.2rem 0.2rem #e3e6e9;
+  padding-bottom: 0.5rem;
+
+  display: none;
 }
+
+.marker-list-item {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 0.1rem solid rgb(102, 100, 100);
+  box-shadow: 0 4px 2px -2px #dbdee0;
+}
+
+.marker-list-btn {
+  background-color: transparent;
+  border: none;
+  width: 100%;
+  font-size: 0.85rem !important;
+  cursor: pointer;
+}
+
+.marker-dropdown {
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  top: 0.7em;
+  right: 3em;
+  z-index: 99;
+  height: 2rem;
+  width: 2.3rem;
+}
+
+.marker-dropdown button {
+  font-size: 1.3rem;
+  background-color: transparent;
+  border: none;
+}
+
+.marker-dropdown:hover .marker-list-pop {
+  display: flex;
+}
+
+
+
