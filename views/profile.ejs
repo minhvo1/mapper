@@ -41,7 +41,7 @@
       <!-- Profile email -->
       <div class="profile-email tab-info">
         <div class="profile-email-left profile-info">
-          <p class="section-headers">Email</p>
+          <p class="section-headers">Email 📧</p>
         </div>
         <div class="profile-email-right">
           <p>
@@ -52,7 +52,7 @@
       <!-- Profile map created -->
       <div class="profile-maps-created tab-info">
         <div class="profile-maps-created-left profile-info">
-          <p class="section-headers">Maps Created</p>
+          <p class="section-headers">Maps Created 🗺️</p>
         </div>
 
         <div class="profile-maps-created-right">
@@ -68,14 +68,14 @@
       <!-- Profile map favorited -->
       <div class="profile-maps-favorited tab-info">
         <div class="profile-maps-favorited-left profile-info">
-          <p class="section-headers">Maps Favorited</p>
+          <p class="section-headers">Maps Favorited ❤️</p>
         </div>
 
         <div class="profile-maps-favorited-right">
           <ul class="maps-favorited-list" style="list-style: square">
             <% for (const map of favMaps) { %>
               <li>
-                <%= map.map_name %> created by <%= map.first_name %>
+                <%= map.map_name %> created by <strong><%= map.first_name %></strong>
               </li>
               <% } %>
 
