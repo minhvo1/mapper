@@ -95,7 +95,7 @@ const createMarkers = () => {
   window.map.on("click", function (event) {
     // lat, long, title, description, imageUrl
     if (!window.currentMapId) {
-      alert("create/select map before you add markers");
+      alert("Create/select map before you add markers.");
       return;
     }
 
