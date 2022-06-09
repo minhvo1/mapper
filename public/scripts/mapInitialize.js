@@ -90,7 +90,7 @@ const renderMarkerList = () => {
       // console.log(points);
       for (let marker of points) {
         const $div = `
-        <div>
+        <div class="marker-list-item">
           <button class="marker-list-btn"> ${marker.title} </button>
           <div class="marker-list-input" data-point="${marker.point_id}"></div>
         </div>
