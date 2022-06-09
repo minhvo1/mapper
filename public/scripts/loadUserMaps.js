@@ -1,18 +1,24 @@
 $(document).ready(function () {
-  let maps;
-  let favMaps;
-
   $.ajax({
     type: "GET",
     url: "/api/maps",
     success: (result) => {
-      maps = result.data;
-
+      const filteredMap = result.data;
       $.ajax({
         type: "GET",
         url: "/api/favmaps",
-        success: (result) => {
-          favMaps = result.data;
+        success: (favmap) => {
+          for (const map of filteredMap) {
+            map.favorited = false;
+            for (const fav of favmap.data) {
+              if (map.id === fav.map_id) {
+                map.favorited = true;
+              } else {
+                continue;
+              }
+            }
+          }
+          console.log(filteredMap); //THIS
         },
       });
 
@@ -24,18 +30,6 @@ $(document).ready(function () {
   });
 
   $(document).ajaxComplete(function () {
-    const filteredMap = [];
-    maps.forEach((map) => {
-      favMaps.forEach((fav) => {
-        if (fav.map_id === map.id) {
-          filteredMap.push(fav);
-        }
-      });
-    });
-
-    // Favorited map lists
-    console.log(filteredMap);
-
     // Find div element in unordered list
     $(".map-list")
       .children()
@@ -54,16 +48,18 @@ $(document).ready(function () {
         $(this).children("button").css("display", "block");
         $(this).parent().css("font-weight", "600");
       });
-    $('.favorite-button').children('i').on('click', function() {
-      $(this).removeClass('fa-regular').addClass('fa-solid');
-      $(this).css('color', '#db3b53');
-    })
+    $(".favorite-button")
+      .children("i")
+      .on("click", function () {
+        $(this).removeClass("fa-regular").addClass("fa-solid");
+        $(this).css("color", "#db3b53");
+      });
   });
 });
 
 // Render user existing maps
 const renderUserMaps = function (data) {
-
+  console.log(data);
   for (let element of data) {
     let $mapElement = `
     <li>
