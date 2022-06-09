@@ -1,6 +1,6 @@
 $(document).ready(function () {
   loadAllMapList();
-  highlightListAfterLoadMaps;
+  highlightListAfterLoadMaps();
 });
 
 const loadAllMapList = () => {
@@ -8,24 +8,8 @@ const loadAllMapList = () => {
     type: "GET",
     url: "/api/maps",
     success: (result) => {
-      const filteredMap = result.data;
-      $.ajax({
-        type: "GET",
-        url: "/api/favmaps",
-        success: (favmap) => {
-          for (const map of filteredMap) {
-            map.favorited = false;
-            for (const fav of favmap.data) {
-              if (map.id === fav.map_id) {
-                map.favorited = true;
-              } else {
-                continue;
-              }
-            }
-          }
-          renderUserMaps(result.data);
-        },
-      });
+      console.log(result.data);
+      renderUserMaps(result.data);
     },
     error: (err) => {
       console.log("error getting map lists", err.message);
@@ -53,6 +37,7 @@ const highlightListAfterLoadMaps = () => {
         $(this).children("button").css("display", "block");
         $(this).parent().css("font-weight", "600");
       });
+
     $(".favorite-button")
       .children("i")
       .on("click", function () {
@@ -81,7 +66,9 @@ const renderUserMaps = function (data) {
         <p class="map-creator">${element.first_name}</p>
         <button class="favorite-button" data-input="${
           element.id
-        }" type="submit"><i ${favoritedAttr}></i></button>
+        }" type="submit"><i ${favoritedAttr} data-fav=${
+      element.favorited
+    }></i></button>
       </div>
     </li>
    `;

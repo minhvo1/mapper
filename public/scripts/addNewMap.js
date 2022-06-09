@@ -9,7 +9,7 @@ const createMapNameElement = (mapInfo) => {
         <p class="map-creator">${mapInfo.creator_name}</p>
         <button class="favorite-button" data-input="${
           mapInfo.id
-        }" type="submit"><i class="fa-regular fa-heart favorite"></i></button>
+        }" type="submit"><i class="fa-regular fa-heart data-fav="false"></i></button>
       </div>
     </li>
    `;
@@ -24,11 +24,9 @@ $(() => {
     const mapName = $(this).serialize().trim();
 
     // remove markers before render new markers
-    if (window.markers) {
-      for (let i = 0; i < window.markers.length; i++) {
-        window.map.removeLayer(window.markers[i]);
-      }
-    }
+    window.map.eachLayer((layer) => {
+      if (!layer._url) window.map.removeLayer(layer);
+    });
 
     $.ajax({
       type: "POST",

@@ -12,13 +12,48 @@ const router = express.Router();
 module.exports = (db) => {
   // get map lists
   router.get("/", (req, res) => {
-    const query = `SELECT users.first_name, maps.* FROM maps LEFT JOIN users ON maps.creator_id = users.id WHERE 1=1 ORDER BY maps.created_at`;
+    const query = `SELECT users.first_name, maps.* FROM maps
+    LEFT JOIN users ON maps.creator_id = users.id WHERE 1=1 ORDER BY maps.created_at`;
 
     db.query(query)
       .then((data) => {
         const maps = data.rows;
 
-        res.send({ message: "map lists", data: maps });
+        // console.log(maps);
+
+        db.query(
+          `SELECT favourite_maps.id AS f_m_id, maps.id AS map_id,
+            maps.map_name, users.first_name
+            FROM favourite_maps
+            JOIN maps ON maps.id = map_id
+            JOIN users ON users.id = creator_id
+            WHERE user_id = $1;`,
+          [req.session.userId]
+        )
+          .then((data) => {
+            const favMaps = data.rows;
+            // console.log(favMaps);
+
+            for (const map of maps) {
+              map.favorited = false;
+
+              for (const fav of favMaps) {
+                if (map.id === fav.map_id) {
+                  map.favorited = true;
+                } else {
+                  continue;
+                }
+              }
+            }
+            console.log(maps);
+
+            res.send({ data: maps });
+          })
+          .catch((err) => {
+            res.status(500).send({ error: err.message });
+          });
+
+        // res.send({ message: "map lists", data: maps });
       })
       .catch((err) => res.status(500).send({ error: err.message }));
   });

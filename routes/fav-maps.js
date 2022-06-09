@@ -40,6 +40,7 @@ module.exports = (db) => {
         [mapId, req.session.userId]
       )
         .then((data) => {
+          console.log("fav");
           const favMap = data.rows[0];
           res.send({ data: favMap });
         })
@@ -53,11 +54,11 @@ module.exports = (db) => {
   router.delete("/:id", (req, res) => {
     const { id } = req.params;
 
-    const query = `DELETE FROM favourite_maps WHERE id = $1 AND user_id = $2
-    RETURNING *`;
+    const query = `DELETE FROM favourite_maps WHERE map_id = $1 AND user_id = $2`;
 
     db.query(query, [id, req.session.userId])
       .then((data) => {
+        console.log("deleted");
         res.send({ message: "deleted success", data: data.rows[0] });
       })
       .catch((err) => {
