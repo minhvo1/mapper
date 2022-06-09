@@ -64,8 +64,14 @@ const highlightListAfterLoadMaps = () => {
 
 // Render user existing maps
 const renderUserMaps = function (data) {
-  console.log(data);
   for (let element of data) {
+    let favoritedAttr;
+    if (!element.favorited) {
+      favoritedAttr = 'class="fa-regular fa-heart"';
+    } else {
+      favoritedAttr = 'class="fa-solid fa-heart" style="color: #db3b53"';
+    }
+
     let $mapElement = `
     <li>
       <div>
@@ -75,7 +81,7 @@ const renderUserMaps = function (data) {
         <p class="map-creator">${element.first_name}</p>
         <button class="favorite-button" data-input="${
           element.id
-        }" type="submit"><i class="fa-regular fa-heart"></i></button>
+        }" type="submit"><i ${favoritedAttr}></i></button>
       </div>
     </li>
    `;

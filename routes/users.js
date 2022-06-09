@@ -116,6 +116,7 @@ module.exports = (db) => {
         )
           .then((data) => {
             const user = data.rows[0];
+
             res.render("profile", { user, favMaps });
           })
           .catch((err) => {
