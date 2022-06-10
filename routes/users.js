@@ -104,12 +104,11 @@ module.exports = (db) => {
     )
       .then((data) => {
         const favMaps = data.rows;
-        console.log(favMaps);
 
         db.query(
           `SELECT users.first_name, users.last_name, users.email, JSON_AGG(json_build_object('id', maps.id
           , 'map_name', maps.map_name)) AS map_lists
-                  FROM users JOIN maps ON maps.creator_id = users.id
+                  FROM users LEFT JOIN maps ON maps.creator_id = users.id
                   WHERE users.id = $1
                   GROUP BY users.first_name, users.last_name, users.email
                   `,

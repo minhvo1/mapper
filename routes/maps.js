@@ -190,7 +190,9 @@ module.exports = (db) => {
     db.query(checkQuery, [id, req.session.userId])
       .then((result) => {
         if (!result.rows.length) {
-          return res.status(400).send({ message: "Please select your marker." });
+          return res
+            .status(400)
+            .send({ message: "Please select your marker." });
         }
         const query = `
           UPDATE points
@@ -224,8 +226,6 @@ module.exports = (db) => {
     `;
     db.query(query, [id, req.session.userId])
       .then((data) => {
-        //console.log(data.rows)
-        console.log('deleted')
         res.send({ message: "success delete" });
       })
       .catch((err) => res.status(500).send({ error: err.message }));
