@@ -64,10 +64,13 @@
             <% if (user.map_lists.length > 0) { %>
               <% for (const map of user.map_lists) { %>
                 <li data-map="<%= map.id %>">
-                  <p><%= map.map_name %></p>
-                  <form class="delete-map-form" action="/api/maps/<%= map.id %>" method="DELETE">
-                    <button type="submit" class="delete-map-button">Delete</button>
-                  </form>
+                  <div>
+                    <p><%= map.map_name %></p>
+                    <form class="delete-map-form" action="/api/maps/<%= map.id %>" method="DELETE">
+                      <button type="submit" class="delete-map-button">❌</button>
+                    </form>
+
+                  </div>
                 </li>
               <% } %>
             <% } else { %>
