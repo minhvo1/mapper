@@ -1,5 +1,5 @@
 ## About
-Wikimap (or mapper.) is an app that allow users to create their own map as well as view ones that were created by others! Created using Node, Express and PostgreSQL. 
+Wikimap (or mapper.) is a map creator that allow users to create their own map with a curated list of markers locations, as well as as view maps created by other users! Created using Node, Express and PostgreSQL. 
 
 ## Getting Started
 
