@@ -43,8 +43,8 @@ Wikimap (or mapper.) is a map creator that allow users to create their own map w
 ## Images
 
 ![login](https://github.com/minhvo1/wikimap/blob/master/docs/login.png?raw=true)
-![main1](https://github.com/minhvo1/wikimap/blob/master/docs/main1.png)
-![main](https://github.com/minhvo1/wikimap/blob/master/docs/main2.png)
+![main2](https://github.com/minhvo1/wikimap/blob/master/docs/main2.png)
+![main3](https://github.com/minhvo1/wikimap/blob/master/docs/main3.png)
 ![profile](https://github.com/minhvo1/wikimap/blob/master/docs/profile.png?raw=true)
 
 
