@@ -43,3 +43,10 @@ Wikimap (or mapper.) is an app that allow users to create their own map as well 
 ## Images
 
 ![login](https://github.com/minhvo1/wikimap/blob/master/docs/login.png?raw=true)
+
+![main](https://github.com/minhvo1/wikimap/blob/master/docs/main2.png)
+
+![profile](https://github.com/minhvo1/wikimap/blob/master/docs/profile.png?raw=true)
+
+
+
