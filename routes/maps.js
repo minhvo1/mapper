@@ -224,8 +224,9 @@ module.exports = (db) => {
     `;
     db.query(query, [id, req.session.userId])
       .then((data) => {
-        console.log(data.rows)
-        res.redirect('/api/users/me');
+        //console.log(data.rows)
+        console.log('deleted')
+        res.send({ message: "success delete" });
       })
       .catch((err) => res.status(500).send({ error: err.message }));
   });
