@@ -93,6 +93,15 @@
 .maps-created-list li {
   padding-top: 0.3rem;
   padding-bottom: 0.3rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+}
+
+.maps-created-list li p {
+  margin: 0;
+
 }
 
 /* Maps Favorited */

@@ -23,6 +23,9 @@
     integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+  <!-- JS Scripts -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script type="text/javascript" src="/scripts/deleteMap.js"></script>
 
 </head>
 
@@ -52,14 +55,22 @@
       <!-- Profile map created -->
       <div class="profile-maps-created tab-info">
         <div class="profile-maps-created-left profile-info">
+
           <p class="section-headers">Maps Created 🗺️</p>
         </div>
 
         <div class="profile-maps-created-right">
-          <ul class="maps-created-list" style="list-style: square">
+          <ul class="maps-created-list" style="list-style: square !important">
+
             <% for (const map of user.map_lists) { %>
               <li>
-                <%= map %>
+                <div data-map="<%= user.id %>">
+                  <p><%= map %></p>
+
+
+                  <form class="delete-map-form" action="/api/maps/<%= map.id %>" method="DELETE">
+                    <button class="delete-map-button" type="submit">Delete</button>
+                  </form>
               </li>
               <% } %>
           </ul>
