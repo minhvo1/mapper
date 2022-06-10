@@ -37,19 +37,6 @@ const highlightListAfterLoadMaps = () => {
         $(this).children("button").css("display", "block");
         $(this).parent().css("font-weight", "600");
       });
-
-    // if (!window.flag) {
-    //   $(".favorite-button").on("click", function () {
-    //     $(this).children().removeClass("fa-regular").addClass("fa-solid");
-    //         $(this).css("color", "#db3b53");
-    //   });
-    //   window.flag = true;
-    // } else {
-    //   $(".favorite-button").on("click", function () {
-    //     $(this).children().removeClass("fa-solid");
-    //   });
-    //   window.flag = false;
-    // }
   });
 };
 // Render user existing maps

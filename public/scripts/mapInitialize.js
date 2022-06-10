@@ -26,7 +26,17 @@ $(document).ready(function () {
       type: "GET",
       url: `/api/maps/point/${pointId}`,
       success: (result) => {
-        window.map.flyTo([result.data.lat, result.data.long], 17);
+        window.map.flyTo([result.data.lat, result.data.long], 15);
+
+        window.map.eachLayer((l) => {
+          if (
+            l._latlng &&
+            l._latlng.lat == result.data.lat &&
+            l._latlng.lng == result.data.long
+          ) {
+            l.openPopup();
+          }
+        });
       },
     });
   });
@@ -213,9 +223,6 @@ const editDeleteHandler = () => {
 
         $(".edit-marker-btn").on("click", function (e) {
           e.preventDefault();
-
-          const lat = layer._latlng.lat;
-          const long = layer._latlng.lng;
 
           $.ajax({
             type: "GET",

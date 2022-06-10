@@ -107,7 +107,8 @@ module.exports = (db) => {
         console.log(favMaps);
 
         db.query(
-          `SELECT users.first_name, users.last_name, users.email, ARRAY_AGG(maps.map_name) as map_lists
+          `SELECT users.first_name, users.last_name, users.email, JSON_AGG(json_build_object('id', maps.id
+          , 'map_name', maps.map_name)) AS map_lists
                   FROM users JOIN maps ON maps.creator_id = users.id
                   WHERE users.id = $1
                   GROUP BY users.first_name, users.last_name, users.email
@@ -116,7 +117,7 @@ module.exports = (db) => {
         )
           .then((data) => {
             const user = data.rows[0];
-
+            console.log(user);
             res.render("profile", { user, favMaps });
           })
           .catch((err) => {
